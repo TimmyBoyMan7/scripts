@@ -1,0 +1,205 @@
+-- Services
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local Backpack = LocalPlayer:WaitForChild("Backpack")
+
+-- Clean up old GUI
+if PlayerGui:FindFirstChild("SpeedAdjustGUI") then
+    PlayerGui:FindFirstChild("SpeedAdjustGUI"):Destroy()
+end
+
+-- GUI Elements
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "SpeedAdjustGUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
+
+local Frame = Instance.new("Frame")
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(61, 28, 28)
+Frame.Position = UDim2.new(0.19784525, 0, 0.306569427, 0)
+Frame.Size = UDim2.new(0, 617, 0, 263)
+Frame.BorderSizePixel = 0
+
+local UICorner = Instance.new("UICorner", Frame)
+
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0.165316045, 0, 0.509505689, 0)
+TextLabel.Size = UDim2.new(0, 52, 0, 48)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = " "
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
+
+local TextLabel_2 = Instance.new("TextLabel")
+TextLabel_2.Parent = Frame
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.BorderSizePixel = 0
+TextLabel_2.Position = UDim2.new(0.184764996, 0, 0.642585576, 0)
+TextLabel_2.Size = UDim2.new(0, 52, 0, 48)
+TextLabel_2.Font = Enum.Font.SourceSans
+TextLabel_2.Text = " "
+TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.TextSize = 14.000
+
+local SaveChanges = Instance.new("TextButton")
+SaveChanges.Name = "SaveChanges"
+SaveChanges.Parent = Frame
+SaveChanges.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SaveChanges.BorderColor3 = Color3.fromRGB(0, 0, 0)
+SaveChanges.BorderSizePixel = 0
+SaveChanges.Position = UDim2.new(0.23987034, 0, 0.589353621, 0)
+SaveChanges.Size = UDim2.new(0, 211, 0, 48)
+SaveChanges.Font = Enum.Font.SourceSans
+SaveChanges.Text = "Save Changes"
+SaveChanges.TextColor3 = Color3.fromRGB(0, 0, 0)
+SaveChanges.TextSize = 36.000
+
+local IncreaseSpeed = Instance.new("TextButton")
+IncreaseSpeed.Name = "IncreaseSpeed"
+IncreaseSpeed.Parent = Frame
+IncreaseSpeed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+IncreaseSpeed.BackgroundTransparency = 1.000
+IncreaseSpeed.BorderColor3 = Color3.fromRGB(0, 0, 0)
+IncreaseSpeed.BorderSizePixel = 0
+IncreaseSpeed.Position = UDim2.new(0.225283638, 0, 0.121673003, 0)
+IncreaseSpeed.Size = UDim2.new(0, 112, 0, 48)
+IncreaseSpeed.Font = Enum.Font.SourceSans
+IncreaseSpeed.Text = "Increase Speed"
+IncreaseSpeed.TextColor3 = Color3.fromRGB(0, 0, 0)
+IncreaseSpeed.TextSize = 33.000
+
+local DecreaseSpeed = Instance.new("TextButton")
+DecreaseSpeed.Name = "DecreaseSpeed"
+DecreaseSpeed.Parent = Frame
+DecreaseSpeed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DecreaseSpeed.BackgroundTransparency = 1.000
+DecreaseSpeed.BorderColor3 = Color3.fromRGB(0, 0, 0)
+DecreaseSpeed.BorderSizePixel = 0
+DecreaseSpeed.Position = UDim2.new(0.614262581, 0, 0.121673003, 0)
+DecreaseSpeed.Size = UDim2.new(0, 112, 0, 48)
+DecreaseSpeed.Font = Enum.Font.SourceSans
+DecreaseSpeed.Text = "Decrease Speed"
+DecreaseSpeed.TextColor3 = Color3.fromRGB(0, 0, 0)
+DecreaseSpeed.TextSize = 33.000
+
+local SpeedNumber = Instance.new("TextLabel")
+SpeedNumber.Name = "SpeedNumber"
+SpeedNumber.Parent = Frame
+SpeedNumber.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SpeedNumber.BackgroundTransparency = 1.000
+SpeedNumber.BorderColor3 = Color3.fromRGB(0, 0, 0)
+SpeedNumber.BorderSizePixel = 0
+SpeedNumber.Position = UDim2.new(0.463533223, 0, 0.326996207, 0)
+SpeedNumber.Size = UDim2.new(0, 44, 0, 48)
+SpeedNumber.Font = Enum.Font.SourceSans
+SpeedNumber.Text = "1"
+SpeedNumber.TextColor3 = Color3.fromRGB(0, 0, 0)
+SpeedNumber.TextSize = 33.000
+
+-- Draggable functionality
+local dragToggle = nil
+local dragSpeed = 0.25
+local dragInput = nil
+local dragStart = nil
+local startPos = nil
+
+local function updateInput(input)
+    local delta = input.Position - dragStart
+    Frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+Frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragToggle = true
+        dragStart = input.Position
+        startPos = Frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragToggle = false
+            end
+        end)
+    end
+end)
+
+Frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement and dragToggle then
+        updateInput(input)
+    end
+end)
+
+-- Speed control logic
+local speed = 1
+
+IncreaseSpeed.MouseButton1Click:Connect(function()
+    speed = math.clamp(speed + 0.1, 0.1, 5)
+    SpeedNumber.Text = string.format("%.1f", speed)
+end)
+
+DecreaseSpeed.MouseButton1Click:Connect(function()
+    speed = math.clamp(speed - 0.1, 0.1, 5)
+    SpeedNumber.Text = string.format("%.1f", speed)
+end)
+
+-- Tool Generator function
+local function giveJerkTool(animSpeed)
+    -- Remove old versions
+    for _, tool in ipairs(Backpack:GetChildren()) do
+        if tool:IsA("Tool") and tool.Name == "Jerk Off" then
+            tool:Destroy()
+        end
+    end
+
+    local tool = Instance.new("Tool")
+    tool.Name = "Jerk Off"
+    tool.ToolTip = "Customized jorking tool"
+    tool.RequiresHandle = false
+    tool.Parent = Backpack
+
+    local character = LocalPlayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+
+    local jorkin = false
+    local track = nil
+
+    local function stop()
+        jorkin = false
+        if track then
+            track:Stop()
+            track = nil
+        end
+    end
+
+    tool.Equipped:Connect(function()
+        jorkin = true
+        while jorkin and humanoid and humanoid.Parent do
+            if not track then
+                local anim = Instance.new("Animation")
+                local isR15 = humanoid.RigType == Enum.HumanoidRigType.R15
+                anim.AnimationId = isR15 and "rbxassetid://698251653" or "rbxassetid://72042024"
+                track = humanoid:LoadAnimation(anim)
+            end
+            track:Play()
+            track:AdjustSpeed(animSpeed)
+            
+            -- Wait for the animation to complete
+            while track and track.IsPlaying do
+                task.wait(0.1)
+            end
+        end
+    end)
+
+    tool.Unequipped:Connect(stop)
+    humanoid.Died:Connect(stop)
+end
+
+SaveChanges.MouseButton1Click:Connect(function()
+    giveJerkTool(speed)
+end)

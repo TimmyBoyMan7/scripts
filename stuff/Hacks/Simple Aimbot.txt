@@ -1,0 +1,297 @@
+--// Services
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Camera = workspace.CurrentCamera
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+
+--// Settings
+local AimbotToggled = false
+local RightClickHeld = false
+local AimPart = "Head"
+local AimFOV = 200
+local Smoothness = 0.15
+local TeamCheck = true
+local WallCheck = true
+local ESPEnabled = false
+local ClearLightingEnabled = false
+
+local CurrentTarget = nil
+local HighlightInstance = Instance.new("Highlight")
+HighlightInstance.FillColor = Color3.fromRGB(0, 255, 255)
+HighlightInstance.FillTransparency = 0.5
+HighlightInstance.OutlineColor = Color3.new(1,1,1)
+HighlightInstance.OutlineTransparency = 0
+HighlightInstance.Enabled = false
+HighlightInstance.Parent = game.CoreGui
+
+--// GUI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "AimbotGUI"
+
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Position = UDim2.new(0, 10, 0, 10)
+Frame.Size = UDim2.new(0, 240, 0, 250)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
+Frame.Active = true
+Frame.Draggable = true
+
+local function makeLabel(name, pos)
+	local lbl = Instance.new("TextLabel", Frame)
+	lbl.Size = UDim2.new(1, -20, 0, 20)
+	lbl.Position = UDim2.new(0, 10, 0, pos)
+	lbl.BackgroundTransparency = 1
+	lbl.TextColor3 = Color3.new(1,1,1)
+	lbl.TextXAlignment = Enum.TextXAlignment.Left
+	lbl.Font = Enum.Font.SourceSans
+	lbl.TextSize = 16
+	lbl.Text = name
+	return lbl
+end
+
+local function makeSlider(posY, color)
+	local btn = Instance.new("TextButton", Frame)
+	btn.Size = UDim2.new(1, -20, 0, 15)
+	btn.Position = UDim2.new(0, 10, 0, posY)
+	btn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+	btn.BorderSizePixel = 0
+	btn.Text = ""
+
+	local fill = Instance.new("Frame", btn)
+	fill.Size = UDim2.new(0, 0, 1, 0)
+	fill.BackgroundColor3 = color
+	fill.BorderSizePixel = 0
+
+	return btn, fill
+end
+
+local ToggleButton = Instance.new("TextButton", Frame)
+ToggleButton.Size = UDim2.new(1, -20, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0, 10)
+ToggleButton.Text = "Toggle Aimbot: OFF"
+ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ToggleButton.TextColor3 = Color3.new(1,1,1)
+ToggleButton.BorderSizePixel = 0
+
+local AimPartLabel = Instance.new("TextButton", Frame)
+AimPartLabel.Position = UDim2.new(0, 10, 0, 50)
+AimPartLabel.Size = UDim2.new(1, -20, 0, 20)
+AimPartLabel.Text = "AimPart: " .. AimPart
+AimPartLabel.BackgroundTransparency = 1
+AimPartLabel.TextColor3 = Color3.new(1,1,1)
+AimPartLabel.TextXAlignment = Enum.TextXAlignment.Left
+AimPartLabel.AutoButtonColor = false
+
+local TeamCheckLabel = Instance.new("TextButton", Frame)
+TeamCheckLabel.Position = UDim2.new(0, 10, 0, 70)
+TeamCheckLabel.Size = UDim2.new(1, -20, 0, 20)
+TeamCheckLabel.Text = "Team Check: ON"
+TeamCheckLabel.BackgroundTransparency = 1
+TeamCheckLabel.TextColor3 = Color3.new(1,1,1)
+TeamCheckLabel.TextXAlignment = Enum.TextXAlignment.Left
+TeamCheckLabel.AutoButtonColor = false
+
+local WallCheckLabel = Instance.new("TextButton", Frame)
+WallCheckLabel.Position = UDim2.new(0, 10, 0, 90)
+WallCheckLabel.Size = UDim2.new(1, -20, 0, 20)
+WallCheckLabel.Text = "Wall Check: ON"
+WallCheckLabel.BackgroundTransparency = 1
+WallCheckLabel.TextColor3 = Color3.new(1,1,1)
+WallCheckLabel.TextXAlignment = Enum.TextXAlignment.Left
+WallCheckLabel.AutoButtonColor = false
+
+local ESPButton = Instance.new("TextButton", Frame)
+ESPButton.Position = UDim2.new(0, 10, 0, 110)
+ESPButton.Size = UDim2.new(0, 0, 0, 0)
+ESPButton.Text = " "
+ESPButton.BackgroundTransparency = 1
+ESPButton.TextColor3 = Color3.new(1,1,1)
+ESPButton.TextXAlignment = Enum.TextXAlignment.Left
+ESPButton.AutoButtonColor = false
+
+local ClearLightingButton = Instance.new("TextButton", Frame)
+ClearLightingButton.Position = UDim2.new(0, 10, 0, 130)
+ClearLightingButton.Size = UDim2.new(1, -20, 0, 20)
+ClearLightingButton.Text = "ClearLighting: OFF"
+ClearLightingButton.BackgroundTransparency = 1
+ClearLightingButton.TextColor3 = Color3.new(1,1,1)
+ClearLightingButton.TextXAlignment = Enum.TextXAlignment.Left
+ClearLightingButton.AutoButtonColor = false
+
+local FOVText = makeLabel("FOV Radius: "..AimFOV, 150)
+local FOVSlider, FOVFill = makeSlider(170, Color3.fromRGB(0,170,255))
+FOVFill.Size = UDim2.new(AimFOV / 500, 0, 1, 0)
+
+local SmoothText = makeLabel("Smoothness: "..Smoothness, 190)
+local SmoothSlider, SmoothFill = makeSlider(210, Color3.fromRGB(0,255,100))
+SmoothFill.Size = UDim2.new(Smoothness, 0, 1, 0)
+
+--// FOV Circle
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Thickness = 1
+FOVCircle.NumSides = 64
+FOVCircle.Radius = AimFOV
+FOVCircle.Filled = false
+FOVCircle.Color = Color3.fromRGB(0,170,255)
+FOVCircle.Visible = true
+
+--// UI Callbacks
+local function updateToggle()
+	AimbotToggled = not AimbotToggled
+	ToggleButton.Text = "Toggle Aimbot: " .. (AimbotToggled and "ON" or "OFF")
+end
+
+ToggleButton.MouseButton1Click:Connect(updateToggle)
+
+AimPartLabel.MouseButton1Click:Connect(function()
+	AimPart = AimPart == "Head" and "HumanoidRootPart" or "Head"
+	AimPartLabel.Text = "AimPart: " .. AimPart
+end)
+
+TeamCheckLabel.MouseButton1Click:Connect(function()
+	TeamCheck = not TeamCheck
+	TeamCheckLabel.Text = "Team Check: " .. (TeamCheck and "ON" or "OFF")
+end)
+
+WallCheckLabel.MouseButton1Click:Connect(function()
+	WallCheck = not WallCheck
+	WallCheckLabel.Text = "Wall Check: " .. (WallCheck and "ON" or "OFF")
+end)
+
+ESPButton.MouseButton1Click:Connect(function()
+	ESPEnabled = not ESPEnabled
+	ESPButton.Text = "  " .. (ESPEnabled and " " or " ")
+end)
+
+ClearLightingButton.MouseButton1Click:Connect(function()
+	ClearLightingEnabled = true
+	ClearLightingButton.Text = "ClearLighting: ON"
+	Lighting.FogEnd = 999999
+	Lighting.FogColor = Color3.fromRGB(255, 255, 255)
+	Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+	Lighting.TimeOfDay = "14:00:00"
+end)
+
+FOVSlider.MouseButton1Down:Connect(function()
+	local con
+	con = RunService.RenderStepped:Connect(function()
+		local relX = math.clamp((Mouse.X - FOVSlider.AbsolutePosition.X) / FOVSlider.AbsoluteSize.X, 0, 1)
+		AimFOV = math.floor(relX * 500)
+		FOVFill.Size = UDim2.new(relX, 0, 1, 0)
+		FOVText.Text = "FOV Radius: " .. AimFOV
+		FOVCircle.Radius = AimFOV
+	end)
+	UserInputService.InputEnded:Wait()
+	con:Disconnect()
+end)
+
+SmoothSlider.MouseButton1Down:Connect(function()
+	local con
+	con = RunService.RenderStepped:Connect(function()
+		local relX = math.clamp((Mouse.X - SmoothSlider.AbsolutePosition.X) / SmoothSlider.AbsoluteSize.X, 0, 1)
+		Smoothness = tonumber(string.format("%.2f", relX))
+		SmoothFill.Size = UDim2.new(relX, 0, 1, 0)
+		SmoothText.Text = "Smoothness: " .. Smoothness
+	end)
+	UserInputService.InputEnded:Wait()
+	con:Disconnect()
+end)
+
+UserInputService.InputBegan:Connect(function(input, gpe)
+	if gpe then return end
+	if input.KeyCode == Enum.KeyCode.K then
+		updateToggle()
+	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
+		RightClickHeld = true
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton2 then
+		RightClickHeld = false
+	end
+end)
+
+--// Get Closest Target with Wall and Team Checks
+local function isVisible(part)
+	if not WallCheck then return true end
+	local ray = RaycastParams.new()
+	ray.FilterType = Enum.RaycastFilterType.Blacklist
+	ray.FilterDescendantsInstances = {LocalPlayer.Character, Camera}
+	local result = workspace:Raycast(Camera.CFrame.Position, (part.Position - Camera.CFrame.Position).Unit * 500, ray)
+	return not result or result.Instance:IsDescendantOf(part.Parent)
+end
+
+local function getClosestPlayer()
+	local closest, minDist = nil, AimFOV
+	for _, player in pairs(Players:GetPlayers()) do
+		if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild(AimPart) then
+			if TeamCheck and player.Team == LocalPlayer.Team then continue end
+			local part = player.Character[AimPart]
+			local screenPos, onScreen = Camera:WorldToViewportPoint(part.Position)
+			if onScreen then
+				local dist = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)).Magnitude
+				if dist < minDist and isVisible(part) then
+					closest = player
+					minDist = dist
+				end
+			end
+		end
+	end
+	return closest
+end
+
+--// Aimbot Render Loop
+RunService.RenderStepped:Connect(function()
+	-- Update FOV Circle Position based on Mouse
+	FOVCircle.Position = Vector2.new(Mouse.X, Mouse.Y)
+
+	if AimbotToggled and RightClickHeld then
+		local target = getClosestPlayer()
+		if target and target.Character and target.Character:FindFirstChild(AimPart) then
+			local pos = target.Character[AimPart].Position
+			local newCFrame = CFrame.new(Camera.CFrame.Position, pos)
+			Camera.CFrame = Camera.CFrame:Lerp(newCFrame, 1 - Smoothness)
+
+			HighlightInstance.Adornee = target.Character
+			HighlightInstance.Enabled = true
+			CurrentTarget = target
+		end
+	else
+		if CurrentTarget then
+			HighlightInstance.Adornee = nil
+			HighlightInstance.Enabled = false
+			CurrentTarget = nil
+		end
+	end
+
+	--// ESP Dot
+	if ESPEnabled then
+		for _, player in pairs(Players:GetPlayers()) do
+			if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild(AimPart) then
+				local part = player.Character[AimPart]
+				local screenPos, onScreen = Camera:WorldToViewportPoint(part.Position)
+				if onScreen then
+					local dist = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)).Magnitude
+					local size = math.clamp(15 / dist, 1, 10)
+
+					local espDot = Instance.new("BillboardGui")
+					espDot.Adornee = part
+					espDot.Size = UDim2.new(0, size, 0, size)
+					espDot.AlwaysOnTop = true
+					espDot.Parent = Camera
+
+					local dot = Instance.new("Frame", espDot)
+					dot.Size = UDim2.new(1, 0, 1, 0)
+					dot.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+					dot.BorderSizePixel = 0
+				end
+			end
+		end
+	end
+end)
+
+print("loaded")

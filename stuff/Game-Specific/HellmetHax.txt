@@ -1,0 +1,1268 @@
+d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
+]=]
+
+-- Instances: 90 | Scripts: 14 | Modules: 0
+local G2L = {};
+
+-- StarterGui.Hellmet Hack
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["DisplayOrder"] = 9999;
+G2L["1"]["Name"] = [[Hellmet Hack]];
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
+G2L["1"]["ResetOnSpawn"] = false;
+
+-- StarterGui.Hellmet Hack.Main
+G2L["2"] = Instance.new("Frame", G2L["1"]);
+G2L["2"]["BorderSizePixel"] = 0;
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["2"]["BackgroundTransparency"] = 0.800000011920929;
+G2L["2"]["Size"] = UDim2.new(0, 425, 0, 248);
+G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["Position"] = UDim2.new(0.3378891348838806, 0, 0.3382716178894043, 0);
+G2L["2"]["Name"] = [[Main]];
+
+-- StarterGui.Hellmet Hack.Main.UICorner
+G2L["3"] = Instance.new("UICorner", G2L["2"]);
+G2L["3"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Tabs
+G2L["4"] = Instance.new("Frame", G2L["2"]);
+G2L["4"]["BorderSizePixel"] = 0;
+G2L["4"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["4"]["BackgroundTransparency"] = 0.8999999761581421;
+G2L["4"]["Size"] = UDim2.new(0, 119, 0, 248);
+G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4"]["Name"] = [[Tabs]];
+
+-- StarterGui.Hellmet Hack.Main.Tabs.UICorner
+G2L["5"] = Instance.new("UICorner", G2L["4"]);
+G2L["5"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Tabs.Weapon
+G2L["6"] = Instance.new("TextButton", G2L["4"]);
+G2L["6"]["ZIndex"] = 2;
+G2L["6"]["BorderSizePixel"] = 0;
+G2L["6"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["6"]["TextSize"] = 20;
+G2L["6"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["6"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["6"]["Size"] = UDim2.new(0, 119, 0, 40);
+G2L["6"]["Name"] = [[Weapon]];
+G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6"]["Text"] = [[Weapon]];
+G2L["6"]["Position"] = UDim2.new(0, 0, 0.060483869165182114, 0);
+G2L["6"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Tabs.Weapon.UICorner
+G2L["7"] = Instance.new("UICorner", G2L["6"]);
+G2L["7"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Tabs.UIStroke
+G2L["8"] = Instance.new("UIStroke", G2L["4"]);
+G2L["8"]["Color"] = Color3.fromRGB(44, 60, 37);
+G2L["8"]["Thickness"] = 3;
+G2L["8"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Tabs.Misc
+G2L["9"] = Instance.new("TextButton", G2L["4"]);
+G2L["9"]["ZIndex"] = 2;
+G2L["9"]["BorderSizePixel"] = 0;
+G2L["9"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["9"]["TextSize"] = 20;
+G2L["9"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["9"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["9"]["Size"] = UDim2.new(0, 119, 0, 40);
+G2L["9"]["Name"] = [[Misc]];
+G2L["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["9"]["Text"] = [[Misc]];
+G2L["9"]["Position"] = UDim2.new(0, 0, 0.29032257199287415, 0);
+G2L["9"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Tabs.Misc.UICorner
+G2L["a"] = Instance.new("UICorner", G2L["9"]);
+G2L["a"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Tabs.BETA
+G2L["b"] = Instance.new("TextButton", G2L["4"]);
+G2L["b"]["ZIndex"] = 2;
+G2L["b"]["BorderSizePixel"] = 0;
+G2L["b"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["b"]["TextSize"] = 20;
+G2L["b"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["b"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["b"]["Size"] = UDim2.new(0, 119, 0, 40);
+G2L["b"]["Name"] = [[BETA]];
+G2L["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["b"]["Text"] = [[BETA]];
+G2L["b"]["Position"] = UDim2.new(0, 0, 0.5362903475761414, 0);
+G2L["b"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Tabs.BETA.UICorner
+G2L["c"] = Instance.new("UICorner", G2L["b"]);
+G2L["c"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Tabs.Other
+G2L["d"] = Instance.new("TextButton", G2L["4"]);
+G2L["d"]["ZIndex"] = 2;
+G2L["d"]["BorderSizePixel"] = 0;
+G2L["d"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["d"]["TextSize"] = 20;
+G2L["d"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["d"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["d"]["Size"] = UDim2.new(0, 119, 0, 40);
+G2L["d"]["Name"] = [[Other]];
+G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["d"]["Text"] = [[Other...]];
+G2L["d"]["Position"] = UDim2.new(0, 0, 0.774193525314331, 0);
+G2L["d"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Tabs.Other.UICorner
+G2L["e"] = Instance.new("UICorner", G2L["d"]);
+G2L["e"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Tabs.TabsScript
+G2L["f"] = Instance.new("LocalScript", G2L["4"]);
+G2L["f"]["Name"] = [[TabsScript]];
+
+-- StarterGui.Hellmet Hack.Main.UIStroke
+G2L["10"] = Instance.new("UIStroke", G2L["2"]);
+G2L["10"]["Color"] = Color3.fromRGB(44, 60, 37);
+G2L["10"]["Thickness"] = 3;
+G2L["10"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.MoveMain
+G2L["11"] = Instance.new("LocalScript", G2L["2"]);
+G2L["11"]["Name"] = [[MoveMain]];
+
+-- StarterGui.Hellmet Hack.Main.Weapon
+G2L["12"] = Instance.new("TextLabel", G2L["2"]);
+G2L["12"]["BorderSizePixel"] = 0;
+G2L["12"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["12"]["TextSize"] = 20;
+G2L["12"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["12"]["Size"] = UDim2.new(0, 97, 0, 45);
+G2L["12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["12"]["Text"] = [[Weapon]];
+G2L["12"]["Name"] = [[Weapon]];
+G2L["12"]["BackgroundTransparency"] = 1;
+G2L["12"]["Position"] = UDim2.new(0.5341176390647888, 0, -0.003931353334337473, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.UICorner
+G2L["13"] = Instance.new("UICorner", G2L["12"]);
+G2L["13"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO
+G2L["14"] = Instance.new("TextLabel", G2L["12"]);
+G2L["14"]["BorderSizePixel"] = 0;
+G2L["14"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["14"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["14"]["TextSize"] = 20;
+G2L["14"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["14"]["Size"] = UDim2.new(0, 102, 0, 40);
+G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["14"]["Text"] = [[INF. AMMO]];
+G2L["14"]["Name"] = [[INF. AMMO]];
+G2L["14"]["BackgroundTransparency"] = 1;
+G2L["14"]["Position"] = UDim2.new(-1.0242574214935303, 0, 0.9953518509864807, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.UICorner
+G2L["15"] = Instance.new("UICorner", G2L["14"]);
+G2L["15"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled
+G2L["16"] = Instance.new("TextButton", G2L["14"]);
+G2L["16"]["BorderSizePixel"] = 0;
+G2L["16"]["BackgroundColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["16"]["TextSize"] = 20;
+G2L["16"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["16"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["16"]["Size"] = UDim2.new(0, 37, 0, 22);
+G2L["16"]["Name"] = [[EnabledDisabled]];
+G2L["16"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["16"]["Text"] = [[]];
+G2L["16"]["Position"] = UDim2.new(1.0567764043807983, 0, 0.20460358262062073, 0);
+G2L["16"]["BackgroundTransparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled.UIStroke
+G2L["17"] = Instance.new("UIStroke", G2L["16"]);
+G2L["17"]["Color"] = Color3.fromRGB(126, 183, 106);
+G2L["17"]["Thickness"] = 3;
+G2L["17"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled.UICorner
+G2L["18"] = Instance.new("UICorner", G2L["16"]);
+G2L["18"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled.LocalScript
+G2L["19"] = Instance.new("LocalScript", G2L["16"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled.EnabledDisabled
+G2L["1a"] = Instance.new("TextLabel", G2L["16"]);
+G2L["1a"]["BorderSizePixel"] = 0;
+G2L["1a"]["BackgroundColor3"] = Color3.fromRGB(183, 183, 183);
+G2L["1a"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["1a"]["TextSize"] = 20;
+G2L["1a"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["1a"]["Size"] = UDim2.new(0, 16, 0, 16);
+G2L["1a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1a"]["Text"] = [[]];
+G2L["1a"]["Name"] = [[EnabledDisabled]];
+G2L["1a"]["Position"] = UDim2.new(0, 0, 0.12300000339746475, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled.EnabledDisabled.UICorner
+G2L["1b"] = Instance.new("UICorner", G2L["1a"]);
+G2L["1b"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase
+G2L["1c"] = Instance.new("TextLabel", G2L["12"]);
+G2L["1c"]["TextWrapped"] = true;
+G2L["1c"]["BorderSizePixel"] = 0;
+G2L["1c"]["TextScaled"] = true;
+G2L["1c"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["1c"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["1c"]["TextSize"] = 12;
+G2L["1c"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["1c"]["Size"] = UDim2.new(0, 102, 0, 40);
+G2L["1c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1c"]["Text"] = [[Firerate Increase]];
+G2L["1c"]["Name"] = [[Firerate Increase]];
+G2L["1c"]["BackgroundTransparency"] = 1;
+G2L["1c"]["Position"] = UDim2.new(0.4602786898612976, 0, 0.9953518509864807, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.UICorner
+G2L["1d"] = Instance.new("UICorner", G2L["1c"]);
+G2L["1d"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled
+G2L["1e"] = Instance.new("TextButton", G2L["1c"]);
+G2L["1e"]["BorderSizePixel"] = 0;
+G2L["1e"]["BackgroundColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["1e"]["TextSize"] = 20;
+G2L["1e"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["1e"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["1e"]["Size"] = UDim2.new(0, 37, 0, 22);
+G2L["1e"]["Name"] = [[EnabledDisabled]];
+G2L["1e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["1e"]["Text"] = [[]];
+G2L["1e"]["Position"] = UDim2.new(1.0567764043807983, 0, 0.20460358262062073, 0);
+G2L["1e"]["BackgroundTransparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled.UIStroke
+G2L["1f"] = Instance.new("UIStroke", G2L["1e"]);
+G2L["1f"]["Color"] = Color3.fromRGB(126, 183, 106);
+G2L["1f"]["Thickness"] = 3;
+G2L["1f"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled.UICorner
+G2L["20"] = Instance.new("UICorner", G2L["1e"]);
+G2L["20"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled.LocalScript
+G2L["21"] = Instance.new("LocalScript", G2L["1e"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled.EnabledDisabled
+G2L["22"] = Instance.new("TextLabel", G2L["1e"]);
+G2L["22"]["BorderSizePixel"] = 0;
+G2L["22"]["BackgroundColor3"] = Color3.fromRGB(183, 183, 183);
+G2L["22"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["22"]["TextSize"] = 20;
+G2L["22"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["22"]["Size"] = UDim2.new(0, 16, 0, 16);
+G2L["22"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["22"]["Text"] = [[]];
+G2L["22"]["Name"] = [[EnabledDisabled]];
+G2L["22"]["Position"] = UDim2.new(0, 0, 0.12300000339746475, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled.EnabledDisabled.UICorner
+G2L["23"] = Instance.new("UICorner", G2L["22"]);
+G2L["23"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage
+G2L["24"] = Instance.new("TextLabel", G2L["12"]);
+G2L["24"]["TextWrapped"] = true;
+G2L["24"]["BorderSizePixel"] = 0;
+G2L["24"]["TextScaled"] = true;
+G2L["24"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["24"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["24"]["TextSize"] = 20;
+G2L["24"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["24"]["Size"] = UDim2.new(0, 102, 0, 40);
+G2L["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["24"]["Text"] = [[Increase BaseDamage]];
+G2L["24"]["Name"] = [[Increase BaseDamage]];
+G2L["24"]["BackgroundTransparency"] = 1;
+G2L["24"]["Position"] = UDim2.new(-1.0242574214935303, 0, 1.884240746498108, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.UICorner
+G2L["25"] = Instance.new("UICorner", G2L["24"]);
+G2L["25"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled
+G2L["26"] = Instance.new("TextButton", G2L["24"]);
+G2L["26"]["BorderSizePixel"] = 0;
+G2L["26"]["BackgroundColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["26"]["TextSize"] = 20;
+G2L["26"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["26"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["26"]["Size"] = UDim2.new(0, 37, 0, 22);
+G2L["26"]["Name"] = [[EnabledDisabled]];
+G2L["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["26"]["Text"] = [[]];
+G2L["26"]["Position"] = UDim2.new(1.0567764043807983, 0, 0.20460358262062073, 0);
+G2L["26"]["BackgroundTransparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled.UIStroke
+G2L["27"] = Instance.new("UIStroke", G2L["26"]);
+G2L["27"]["Color"] = Color3.fromRGB(126, 183, 106);
+G2L["27"]["Thickness"] = 3;
+G2L["27"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled.UICorner
+G2L["28"] = Instance.new("UICorner", G2L["26"]);
+G2L["28"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled.EnabledDisabled
+G2L["29"] = Instance.new("TextLabel", G2L["26"]);
+G2L["29"]["BorderSizePixel"] = 0;
+G2L["29"]["BackgroundColor3"] = Color3.fromRGB(183, 183, 183);
+G2L["29"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["29"]["TextSize"] = 20;
+G2L["29"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["29"]["Size"] = UDim2.new(0, 16, 0, 16);
+G2L["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["29"]["Text"] = [[]];
+G2L["29"]["Name"] = [[EnabledDisabled]];
+G2L["29"]["Position"] = UDim2.new(0, 0, 0.12300000339746475, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled.EnabledDisabled.UICorner
+G2L["2a"] = Instance.new("UICorner", G2L["29"]);
+G2L["2a"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled.LocalScript
+G2L["2b"] = Instance.new("LocalScript", G2L["26"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets
+G2L["2c"] = Instance.new("TextLabel", G2L["12"]);
+G2L["2c"]["TextWrapped"] = true;
+G2L["2c"]["BorderSizePixel"] = 0;
+G2L["2c"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["2c"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["2c"]["TextSize"] = 20;
+G2L["2c"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["2c"]["Size"] = UDim2.new(0, 110, 0, 40);
+G2L["2c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2c"]["Text"] = [[Increase Pellets]];
+G2L["2c"]["Name"] = [[Increase Pellets]];
+G2L["2c"]["BackgroundTransparency"] = 1;
+G2L["2c"]["Position"] = UDim2.new(-1.113402009010315, 0, 2.77312970161438, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.UICorner
+G2L["2d"] = Instance.new("UICorner", G2L["2c"]);
+G2L["2d"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled
+G2L["2e"] = Instance.new("TextButton", G2L["2c"]);
+G2L["2e"]["BorderSizePixel"] = 0;
+G2L["2e"]["BackgroundColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["2e"]["TextSize"] = 20;
+G2L["2e"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["2e"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["2e"]["Size"] = UDim2.new(0, 37, 0, 22);
+G2L["2e"]["Name"] = [[EnabledDisabled]];
+G2L["2e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2e"]["Text"] = [[]];
+G2L["2e"]["Position"] = UDim2.new(1.0567764043807983, 0, 0.20460358262062073, 0);
+G2L["2e"]["BackgroundTransparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled.UIStroke
+G2L["2f"] = Instance.new("UIStroke", G2L["2e"]);
+G2L["2f"]["Color"] = Color3.fromRGB(126, 183, 106);
+G2L["2f"]["Thickness"] = 3;
+G2L["2f"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled.UICorner
+G2L["30"] = Instance.new("UICorner", G2L["2e"]);
+G2L["30"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled.EnabledDisabled
+G2L["31"] = Instance.new("TextLabel", G2L["2e"]);
+G2L["31"]["BorderSizePixel"] = 0;
+G2L["31"]["BackgroundColor3"] = Color3.fromRGB(183, 183, 183);
+G2L["31"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["31"]["TextSize"] = 20;
+G2L["31"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["31"]["Size"] = UDim2.new(0, 16, 0, 16);
+G2L["31"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["31"]["Text"] = [[]];
+G2L["31"]["Name"] = [[EnabledDisabled]];
+G2L["31"]["Position"] = UDim2.new(0, 0, 0.12300000339746475, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled.EnabledDisabled.UICorner
+G2L["32"] = Instance.new("UICorner", G2L["31"]);
+G2L["32"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled.LocalScript
+G2L["33"] = Instance.new("LocalScript", G2L["2e"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer
+G2L["34"] = Instance.new("TextLabel", G2L["2c"]);
+G2L["34"]["BorderSizePixel"] = 0;
+G2L["34"]["BackgroundColor3"] = Color3.fromRGB(183, 183, 183);
+G2L["34"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["34"]["TextSize"] = 20;
+G2L["34"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["34"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["34"]["Size"] = UDim2.new(0, 16, 0, 16);
+G2L["34"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["34"]["Text"] = [[?]];
+G2L["34"]["Name"] = [[Answer]];
+G2L["34"]["Position"] = UDim2.new(0.9823564291000366, 0, 0.20000000298023224, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.UICorner
+G2L["35"] = Instance.new("UICorner", G2L["34"]);
+G2L["35"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.Answer_Frame
+G2L["36"] = Instance.new("Frame", G2L["34"]);
+G2L["36"]["BorderSizePixel"] = 0;
+G2L["36"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["36"]["BackgroundTransparency"] = 0.800000011920929;
+G2L["36"]["Size"] = UDim2.new(0, 137, 0, 94);
+G2L["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["36"]["Position"] = UDim2.new(15.003677368164062, 0, -3.3639698028564453, 0);
+G2L["36"]["Visible"] = false;
+G2L["36"]["Name"] = [[Answer_Frame]];
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.Answer_Frame.UICorner
+G2L["37"] = Instance.new("UICorner", G2L["36"]);
+G2L["37"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.Answer_Frame.UIStroke
+G2L["38"] = Instance.new("UIStroke", G2L["36"]);
+G2L["38"]["Color"] = Color3.fromRGB(44, 60, 37);
+G2L["38"]["Thickness"] = 3;
+G2L["38"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.Answer_Frame.Answer
+G2L["39"] = Instance.new("TextLabel", G2L["36"]);
+G2L["39"]["TextWrapped"] = true;
+G2L["39"]["BorderSizePixel"] = 0;
+G2L["39"]["TextScaled"] = true;
+G2L["39"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["39"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["39"]["TextSize"] = 14;
+G2L["39"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["39"]["Size"] = UDim2.new(0, 137, 0, 94);
+G2L["39"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["39"]["Text"] = [[The script is designed to increase the number of pellets for a shotgun]];
+G2L["39"]["Name"] = [[Answer]];
+G2L["39"]["BackgroundTransparency"] = 1;
+G2L["39"]["Position"] = UDim2.new(-0.004663620609790087, 0, -0.006180783733725548, 0);
+
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.LocalScript
+G2L["3a"] = Instance.new("LocalScript", G2L["34"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Misc
+G2L["3b"] = Instance.new("TextLabel", G2L["2"]);
+G2L["3b"]["BorderSizePixel"] = 0;
+G2L["3b"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["3b"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3b"]["TextSize"] = 20;
+G2L["3b"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["3b"]["Size"] = UDim2.new(0, 97, 0, 45);
+G2L["3b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3b"]["Text"] = [[Misc]];
+G2L["3b"]["Name"] = [[Misc]];
+G2L["3b"]["Visible"] = false;
+G2L["3b"]["BackgroundTransparency"] = 1;
+G2L["3b"]["Position"] = UDim2.new(0.5341176390647888, 0, -0.003931353334337473, 0);
+
+-- StarterGui.Hellmet Hack.Main.Misc.UICorner
+G2L["3c"] = Instance.new("UICorner", G2L["3b"]);
+G2L["3c"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip
+G2L["3d"] = Instance.new("TextLabel", G2L["3b"]);
+G2L["3d"]["BorderSizePixel"] = 0;
+G2L["3d"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["3d"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3d"]["TextSize"] = 20;
+G2L["3d"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["3d"]["Size"] = UDim2.new(0, 102, 0, 40);
+G2L["3d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3d"]["Text"] = [[Noclip]];
+G2L["3d"]["Name"] = [[Noclip]];
+G2L["3d"]["BackgroundTransparency"] = 1;
+G2L["3d"]["Position"] = UDim2.new(-1.0242574214935303, 0, 0.9953518509864807, 0);
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.UICorner
+G2L["3e"] = Instance.new("UICorner", G2L["3d"]);
+G2L["3e"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled
+G2L["3f"] = Instance.new("TextButton", G2L["3d"]);
+G2L["3f"]["BorderSizePixel"] = 0;
+G2L["3f"]["BackgroundColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["3f"]["TextSize"] = 20;
+G2L["3f"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3f"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["3f"]["Size"] = UDim2.new(0, 37, 0, 22);
+G2L["3f"]["Name"] = [[EnabledDisabled]];
+G2L["3f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3f"]["Text"] = [[]];
+G2L["3f"]["Position"] = UDim2.new(1.0567764043807983, 0, 0.20460358262062073, 0);
+G2L["3f"]["BackgroundTransparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled.UIStroke
+G2L["40"] = Instance.new("UIStroke", G2L["3f"]);
+G2L["40"]["Color"] = Color3.fromRGB(126, 183, 106);
+G2L["40"]["Thickness"] = 3;
+G2L["40"]["Transparency"] = 0.4000000059604645;
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled.UICorner
+G2L["41"] = Instance.new("UICorner", G2L["3f"]);
+G2L["41"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled.LocalScript
+G2L["42"] = Instance.new("LocalScript", G2L["3f"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled.EnabledDisabled
+G2L["43"] = Instance.new("TextLabel", G2L["3f"]);
+G2L["43"]["BorderSizePixel"] = 0;
+G2L["43"]["BackgroundColor3"] = Color3.fromRGB(183, 183, 183);
+G2L["43"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["43"]["TextSize"] = 20;
+G2L["43"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["43"]["Size"] = UDim2.new(0, 16, 0, 16);
+G2L["43"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["43"]["Text"] = [[]];
+G2L["43"]["Name"] = [[EnabledDisabled]];
+G2L["43"]["Position"] = UDim2.new(0, 0, 0.12300000339746475, 0);
+
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled.EnabledDisabled.UICorner
+G2L["44"] = Instance.new("UICorner", G2L["43"]);
+G2L["44"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.BETA
+G2L["45"] = Instance.new("TextLabel", G2L["2"]);
+G2L["45"]["BorderSizePixel"] = 0;
+G2L["45"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["45"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["45"]["TextSize"] = 20;
+G2L["45"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["45"]["Size"] = UDim2.new(0, 97, 0, 45);
+G2L["45"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["45"]["Text"] = [[BETA]];
+G2L["45"]["Name"] = [[BETA]];
+G2L["45"]["Visible"] = false;
+G2L["45"]["BackgroundTransparency"] = 1;
+G2L["45"]["Position"] = UDim2.new(0.5341176390647888, 0, -0.003931353334337473, 0);
+
+-- StarterGui.Hellmet Hack.Main.BETA.UICorner
+G2L["46"] = Instance.new("UICorner", G2L["45"]);
+G2L["46"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Other
+G2L["47"] = Instance.new("TextLabel", G2L["2"]);
+G2L["47"]["BorderSizePixel"] = 0;
+G2L["47"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["47"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["47"]["TextSize"] = 20;
+G2L["47"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["47"]["Size"] = UDim2.new(0, 97, 0, 45);
+G2L["47"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["47"]["Text"] = [[Other...]];
+G2L["47"]["Name"] = [[Other]];
+G2L["47"]["Visible"] = false;
+G2L["47"]["BackgroundTransparency"] = 1;
+G2L["47"]["Position"] = UDim2.new(0.5341176390647888, 0, -0.003931353334337473, 0);
+
+-- StarterGui.Hellmet Hack.Main.Other.UICorner
+G2L["48"] = Instance.new("UICorner", G2L["47"]);
+G2L["48"]["CornerRadius"] = UDim.new(0, 10);
+
+-- StarterGui.Hellmet Hack.Main.Other.Inf. Yield
+G2L["49"] = Instance.new("TextButton", G2L["47"]);
+G2L["49"]["BorderSizePixel"] = 0;
+G2L["49"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["49"]["TextSize"] = 20;
+G2L["49"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["49"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["49"]["Size"] = UDim2.new(0, 128, 0, 40);
+G2L["49"]["Name"] = [[Inf. Yield]];
+G2L["49"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["49"]["Text"] = [[Inf. Yield]];
+G2L["49"]["Position"] = UDim2.new(-0.9793814420700073, 0, 0.9741936326026917, 0);
+G2L["49"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Other.Inf. Yield.UICorner
+G2L["4a"] = Instance.new("UICorner", G2L["49"]);
+G2L["4a"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Other.Inf. Yield.LocalScript
+G2L["4b"] = Instance.new("LocalScript", G2L["49"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Other.Dex Explorer
+G2L["4c"] = Instance.new("TextButton", G2L["47"]);
+G2L["4c"]["BorderSizePixel"] = 0;
+G2L["4c"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["4c"]["TextSize"] = 20;
+G2L["4c"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["4c"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["4c"]["Size"] = UDim2.new(0, 128, 0, 40);
+G2L["4c"]["Name"] = [[Dex Explorer]];
+G2L["4c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4c"]["Text"] = [[Dex Explorer]];
+G2L["4c"]["Position"] = UDim2.new(0.6082473993301392, 0, 0.9741936326026917, 0);
+G2L["4c"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Other.Dex Explorer.UICorner
+G2L["4d"] = Instance.new("UICorner", G2L["4c"]);
+G2L["4d"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Other.Dex Explorer.LocalScript
+G2L["4e"] = Instance.new("LocalScript", G2L["4c"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Other.Destroy GUI
+G2L["4f"] = Instance.new("TextButton", G2L["47"]);
+G2L["4f"]["BorderSizePixel"] = 0;
+G2L["4f"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["4f"]["TextSize"] = 20;
+G2L["4f"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["4f"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["4f"]["Size"] = UDim2.new(0, 128, 0, 40);
+G2L["4f"]["Name"] = [[Destroy GUI]];
+G2L["4f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4f"]["Text"] = [[Destroy GUI]];
+G2L["4f"]["Position"] = UDim2.new(-0.9793814420700073, 0, 2.0853047370910645, 0);
+G2L["4f"]["BackgroundTransparency"] = 0.6000000238418579;
+
+-- StarterGui.Hellmet Hack.Main.Other.Destroy GUI.UICorner
+G2L["50"] = Instance.new("UICorner", G2L["4f"]);
+G2L["50"]["CornerRadius"] = UDim.new(0, 6);
+
+-- StarterGui.Hellmet Hack.Main.Other.Destroy GUI.LocalScript
+G2L["51"] = Instance.new("LocalScript", G2L["4f"]);
+
+
+-- StarterGui.Hellmet Hack.Main.Info
+G2L["52"] = Instance.new("TextLabel", G2L["2"]);
+G2L["52"]["BorderSizePixel"] = 0;
+G2L["52"]["BackgroundColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["52"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["52"]["TextColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["52"]["Size"] = UDim2.new(0, 97, 0, 30);
+G2L["52"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["52"]["Text"] = [[]];
+G2L["52"]["Name"] = [[Info]];
+G2L["52"]["BackgroundTransparency"] = 1;
+G2L["52"]["Position"] = UDim2.new(0.7270588278770447, 0, 0.75, 0);
+
+-- StarterGui.Hellmet Hack.Main.Info.Hide GUI on F3
+G2L["53"] = Instance.new("TextLabel", G2L["52"]);
+G2L["53"]["BorderSizePixel"] = 0;
+G2L["53"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["53"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["53"]["TextSize"] = 12;
+G2L["53"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["53"]["Size"] = UDim2.new(0, 97, 0, 30);
+G2L["53"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["53"]["Text"] = [[Hide GUI on F3]];
+G2L["53"]["Name"] = [[Hide GUI on F3]];
+G2L["53"]["BackgroundTransparency"] = 1;
+G2L["53"]["Position"] = UDim2.new(0.1907581388950348, 0, 0.8238443732261658, 0);
+
+-- StarterGui.Hellmet Hack.Main.Info.Unlock mouse on X ( in first person )
+G2L["54"] = Instance.new("TextLabel", G2L["52"]);
+G2L["54"]["BorderSizePixel"] = 0;
+G2L["54"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["54"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["54"]["TextSize"] = 12;
+G2L["54"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["54"]["Size"] = UDim2.new(0, 97, 0, 30);
+G2L["54"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["54"]["Text"] = [[Unlock mouse on X ( in first person )]];
+G2L["54"]["Name"] = [[Unlock mouse on X ( in first person )]];
+G2L["54"]["BackgroundTransparency"] = 1;
+G2L["54"]["Position"] = UDim2.new(-0.44841712713241577, 0, 1.3238444328308105, 0);
+
+-- StarterGui.Hellmet Hack.Main.Info.Made by supermariobekon
+G2L["55"] = Instance.new("TextLabel", G2L["52"]);
+G2L["55"]["BorderSizePixel"] = 0;
+G2L["55"]["BackgroundColor3"] = Color3.fromRGB(44, 60, 37);
+G2L["55"]["FontFace"] = Font.new([[rbxasset://fonts/families/GothamSSm.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["55"]["TextSize"] = 12;
+G2L["55"]["TextColor3"] = Color3.fromRGB(126, 183, 106);
+G2L["55"]["Size"] = UDim2.new(0, 97, 0, 30);
+G2L["55"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["55"]["Text"] = [[Made by supermariobekon]];
+G2L["55"]["Name"] = [[Made by supermariobekon]];
+G2L["55"]["BackgroundTransparency"] = 1;
+G2L["55"]["Position"] = UDim2.new(-0.11852020770311356, 0, 0.32384440302848816, 0);
+
+-- StarterGui.Hellmet Hack.Gui futures
+G2L["56"] = Instance.new("TextButton", G2L["1"]);
+G2L["56"]["Modal"] = true;
+G2L["56"]["TextTransparency"] = 1;
+G2L["56"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["56"]["TextSize"] = 14;
+G2L["56"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["56"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["56"]["Visible"] = false;
+G2L["56"]["Name"] = [[Gui futures]];
+
+-- StarterGui.Hellmet Hack.Gui futures.UnlockMouse
+G2L["57"] = Instance.new("LocalScript", G2L["56"]);
+G2L["57"]["Name"] = [[UnlockMouse]];
+
+-- StarterGui.Hellmet Hack.Gui futures.Hide/UnDelete Gui
+G2L["58"] = Instance.new("LocalScript", G2L["56"]);
+G2L["58"]["Name"] = [[Hide/UnDelete Gui]];
+
+-- StarterGui.Hellmet Hack.ClickSound
+G2L["59"] = Instance.new("LocalScript", G2L["1"]);
+G2L["59"]["Name"] = [[ClickSound]];
+
+-- StarterGui.Hellmet Hack.Click
+G2L["5a"] = Instance.new("Sound", G2L["1"]);
+G2L["5a"]["PlaybackSpeed"] = 2;
+G2L["5a"]["Name"] = [[Click]];
+G2L["5a"]["SoundId"] = [[rbxassetid://9070807695]];
+
+-- StarterGui.Hellmet Hack.Main.Tabs.TabsScript
+local function C_f()
+local script = G2L["f"];
+	local buttonBeta = script.Parent.BETA
+	local buttonFunny = script.Parent.Misc
+	local buttonOther = script.Parent.Other
+	local buttonWeapon = script.Parent.Weapon
+	
+	local frameBeta = script.Parent.Parent.BETA
+	local frameMisc = script.Parent.Parent.Misc
+	local frameOther = script.Parent.Parent.Other
+	local frameWeapon = script.Parent.Parent.Weapon
+	
+	buttonBeta.MouseButton1Click:Connect(function()
+		frameBeta.Visible = true
+		frameMisc.Visible = false
+		frameOther.Visible = false
+		frameWeapon.Visible = false
+	end)
+	
+	buttonFunny.MouseButton1Click:Connect(function()
+		frameBeta.Visible = false
+		frameMisc.Visible = true
+		frameOther.Visible = false
+		frameWeapon.Visible = false
+	end)
+	
+	buttonOther.MouseButton1Click:Connect(function()
+		frameBeta.Visible = false
+		frameMisc.Visible = false
+		frameOther.Visible = true
+		frameWeapon.Visible = false
+	end)
+	
+	buttonWeapon.MouseButton1Click:Connect(function()
+		frameBeta.Visible = false
+		frameMisc.Visible = false
+		frameOther.Visible = false
+		frameWeapon.Visible = true
+	end)
+end;
+task.spawn(C_f);
+-- StarterGui.Hellmet Hack.Main.MoveMain
+local function C_11()
+local script = G2L["11"];
+	local UIS = game:GetService('UserInputService')
+	local frame = script.Parent
+	
+	local dragToggle = nil
+	local dragSpeed = 0.01
+	local dragStart = nil
+	local startPos = nil
+	
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y) 
+		game:GetService('TweenService') :Create(frame, TweenInfo.new(dragSpeed), {Position = position}) :Play()
+	end
+	
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	
+	UIS.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updateInput(input)
+			end
+		end
+	end)
+	
+end;
+task.spawn(C_11);
+-- StarterGui.Hellmet Hack.Main.Weapon.INF. AMMO.EnabledDisabled.LocalScript
+local function C_19()
+local script = G2L["19"];
+	local button = script.Parent
+	local isActive = false
+	local textLabel = script.Parent.EnabledDisabled
+	
+	local originalPosition = textLabel.Position
+	local newPosition = UDim2.new(originalPosition.X.Scale + 0.55, originalPosition.X.Offset, originalPosition.Y.Scale, originalPosition.Y.Offset)
+	
+	local function updateAttributes()
+		local player = game:GetService("Players").LocalPlayer
+		local backpack = player.Backpack
+	
+		for _, tool in pairs(backpack:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("Ammo")
+			if ammoAttribute then
+				tool:SetAttribute("Ammo", isActive and 9999 or 5)
+			end
+		end
+	end
+	
+	local function updateAttributes1()
+		local player = game:GetService("Players").LocalPlayer
+		local char = player.Character
+	
+		for _, tool in pairs(char:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("Ammo")
+			if ammoAttribute then
+				tool:SetAttribute("Ammo", isActive and 9999 or 5)
+			end
+		end
+	end
+	
+	local function startLoop()
+		while isActive do
+			wait(0.1)
+			updateAttributes()
+			updateAttributes1()
+			textLabel:TweenPosition(newPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+			textLabel.BackgroundColor3 = Color3.fromRGB(43, 59, 36)
+		end
+		textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		textLabel.BackgroundColor3 = Color3.fromRGB(182, 182, 182)
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		isActive = not isActive
+	
+		if isActive then
+			startLoop()
+		else
+			updateAttributes()
+			updateAttributes1()
+			textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		end
+	end)
+end;
+task.spawn(C_19);
+-- StarterGui.Hellmet Hack.Main.Weapon.Firerate Increase.EnabledDisabled.LocalScript
+local function C_21()
+local script = G2L["21"];
+	local button = script.Parent
+	local isActive = false
+	local textLabel = script.Parent.EnabledDisabled
+	
+	local originalPosition = textLabel.Position
+	local newPosition = UDim2.new(originalPosition.X.Scale + 0.55, originalPosition.X.Offset, originalPosition.Y.Scale, originalPosition.Y.Offset)
+	
+	local function updateAttributes()
+		local player = game:GetService("Players").LocalPlayer
+		local backpack = player.Backpack
+	
+		for _, tool in pairs(backpack:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("Firerate")
+			if ammoAttribute then
+				tool:SetAttribute("Firerate", isActive and ammoAttribute * 1000 or ammoAttribute / 1000)
+			end
+		end
+	end
+	
+	local function updateAttributes1()
+		local player = game:GetService("Players").LocalPlayer
+		local char = player.Character
+	
+		for _, tool in pairs(char:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("Firerate")
+			if ammoAttribute then
+				tool:SetAttribute("Firerate", isActive and ammoAttribute * 1000 or ammoAttribute / 1000)
+			end
+		end
+	end
+	
+	local function startLoop()
+		updateAttributes()
+		updateAttributes1()
+		while isActive do
+			textLabel:TweenPosition(newPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+			textLabel.BackgroundColor3 = Color3.fromRGB(43, 59, 36)
+			wait(0.1)
+		end
+		textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		textLabel.BackgroundColor3 = Color3.fromRGB(182, 182, 182)
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		isActive = not isActive
+	
+		if isActive then
+			startLoop()
+		else
+			updateAttributes()
+			updateAttributes1()
+			textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		end
+	end)
+end;
+task.spawn(C_21);
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase BaseDamage.EnabledDisabled.LocalScript
+local function C_2b()
+local script = G2L["2b"];
+	local button = script.Parent
+	local isActive = false
+	local textLabel = script.Parent.EnabledDisabled
+	
+	local originalPosition = textLabel.Position
+	local newPosition = UDim2.new(originalPosition.X.Scale + 0.55, originalPosition.X.Offset, originalPosition.Y.Scale, originalPosition.Y.Offset)
+	
+	local function updateAttributes()
+		local player = game:GetService("Players").LocalPlayer
+		local backpack = player.Backpack
+	
+		for _, tool in pairs(backpack:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("BaseDamage")
+			if ammoAttribute then
+				tool:SetAttribute("BaseDamage", isActive and ammoAttribute * 1000 or ammoAttribute / 1000)
+			end
+		end
+	end
+	
+	local function updateAttributes1()
+		local player = game:GetService("Players").LocalPlayer
+		local char = player.Character
+	
+		for _, tool in pairs(char:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("BaseDamage")
+			if ammoAttribute then
+				tool:SetAttribute("BaseDamage", isActive and ammoAttribute * 1000 or ammoAttribute / 1000)
+			end
+		end
+	end
+	
+	local function startLoop()
+		updateAttributes()
+		updateAttributes1()
+		while isActive do
+			textLabel:TweenPosition(newPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+			textLabel.BackgroundColor3 = Color3.fromRGB(43, 59, 36)
+			wait(0.1)
+		end
+		textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		textLabel.BackgroundColor3 = Color3.fromRGB(182, 182, 182)
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		isActive = not isActive
+	
+		if isActive then
+			startLoop()
+		else
+			updateAttributes()
+			updateAttributes1()
+			textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		end
+	end)
+end;
+task.spawn(C_2b);
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.EnabledDisabled.LocalScript
+local function C_33()
+local script = G2L["33"];
+	local button = script.Parent
+	local isActive = false
+	local textLabel = script.Parent.EnabledDisabled
+	
+	local originalPosition = textLabel.Position
+	local newPosition = UDim2.new(originalPosition.X.Scale + 0.55, originalPosition.X.Offset, originalPosition.Y.Scale, originalPosition.Y.Offset)
+	
+	local function updateAttributes()
+		local player = game:GetService("Players").LocalPlayer
+		local backpack = player.Backpack
+	
+		for _, tool in pairs(backpack:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("Pellets")
+			if ammoAttribute then
+				tool:SetAttribute("Pellets", isActive and ammoAttribute * 25 or ammoAttribute / 25)
+			end
+		end
+	end
+	
+	local function updateAttributes1()
+		local player = game:GetService("Players").LocalPlayer
+		local char = player.Character
+	
+		for _, tool in pairs(char:GetChildren()) do
+			local ammoAttribute = tool:GetAttribute("Pellets")
+			if ammoAttribute then
+				tool:SetAttribute("Pellets", isActive and ammoAttribute * 25 or ammoAttribute / 25)
+			end
+		end
+	end
+	
+	local function startLoop()
+		updateAttributes()
+		updateAttributes1()
+		while isActive do
+			textLabel:TweenPosition(newPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+			textLabel.BackgroundColor3 = Color3.fromRGB(43, 59, 36)
+			wait(0.1)
+		end
+		textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		textLabel.BackgroundColor3 = Color3.fromRGB(182, 182, 182)
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		isActive = not isActive
+	
+		if isActive then
+			startLoop()
+		else
+			updateAttributes()
+			updateAttributes1()
+			textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		end
+	end)
+end;
+task.spawn(C_33);
+-- StarterGui.Hellmet Hack.Main.Weapon.Increase Pellets.Answer.LocalScript
+local function C_3a()
+local script = G2L["3a"];
+	local textLabel = script.Parent
+	local answerFrame = script.Parent.Answer_Frame
+	
+	local function showAnswerFrame()
+		answerFrame.Visible = true
+	end
+	
+	
+	local function hideAnswerFrame()
+		answerFrame.Visible = false
+	end
+	
+	textLabel.MouseEnter:Connect(showAnswerFrame)
+	textLabel.MouseLeave:Connect(hideAnswerFrame)
+end;
+task.spawn(C_3a);
+-- StarterGui.Hellmet Hack.Main.Misc.Noclip.EnabledDisabled.LocalScript
+local function C_42()
+local script = G2L["42"];
+	local button = script.Parent
+	local isActive = false
+	local textLabel = script.Parent.EnabledDisabled
+	
+	local originalPosition = textLabel.Position
+	local newPosition = UDim2.new(originalPosition.X.Scale + 0.55, originalPosition.X.Offset, originalPosition.Y.Scale, originalPosition.Y.Offset)
+	
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	local speaker = Players.LocalPlayer
+	local floatName = "FloatPart"
+	
+	local Clip = false
+	
+	local function NoclipLoop()
+		if Clip == false and speaker.Character ~= nil and isActive then
+			for _, child in pairs(speaker.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true and child.Name ~= floatName then
+					child.CanCollide = false
+				end
+			end
+		end
+	end
+	Noclipping = RunService.Stepped:Connect(NoclipLoop)
+	
+	local function startLoop()
+		while isActive do
+			wait(0.1)
+			NoclipLoop()
+			textLabel:TweenPosition(newPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+			textLabel.BackgroundColor3 = Color3.fromRGB(43, 59, 36)
+		end
+		textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+		textLabel.BackgroundColor3 = Color3.fromRGB(182, 182, 182)
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		isActive = not isActive
+	
+		if isActive then
+			startLoop()
+		else
+			NoclipLoop()
+			textLabel:TweenPosition(originalPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+			speaker.Character.Humanoid.PlatformStand = true
+			wait()
+			speaker.Character.Humanoid.PlatformStand = false
+		end
+	end)
+end;
+task.spawn(C_42);
+-- StarterGui.Hellmet Hack.Main.Other.Inf. Yield.LocalScript
+local function C_4b()
+local script = G2L["4b"];
+	local button = script.Parent
+	
+	button.MouseButton1Click:Connect(function()
+	
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	
+	end)
+end;
+task.spawn(C_4b);
+-- StarterGui.Hellmet Hack.Main.Other.Dex Explorer.LocalScript
+local function C_4e()
+local script = G2L["4e"];
+	local button = script.Parent
+	
+	button.MouseButton1Click:Connect(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
+	end)
+end;
+task.spawn(C_4e);
+-- StarterGui.Hellmet Hack.Main.Other.Destroy GUI.LocalScript
+local function C_51()
+local script = G2L["51"];
+	local button = script.Parent
+	local GUI = script.Parent.Parent.Parent.Parent
+	
+	local frame = script.Parent.Parent.Parent
+	local transparency = 0.8
+	local transparencyStep = 0.01
+	
+	local soundId = "rbxassetid://9118052301"
+	
+	local soundInstance = Instance.new("Sound")
+	soundInstance.SoundId = soundId
+	soundInstance.Parent = button
+	soundInstance.PlayOnRemove = true
+	soundInstance.PlaybackSpeed = 0.5
+	
+	local isPlaying = false
+	
+	local function fadeOut()
+		while transparency < 1 do
+			transparency = transparency + transparencyStep
+			frame.BackgroundTransparency = transparency
+			wait(0.1)
+		end
+		GUI:Destroy()
+	end
+	
+	button.MouseButton1Click:Connect(function()
+		if not isPlaying then
+			isPlaying = true
+			soundInstance:Play()
+			fadeOut()
+		end
+	end)
+	
+	
+	
+	
+end;
+task.spawn(C_51);
+-- StarterGui.Hellmet Hack.Gui futures.UnlockMouse
+local function C_57()
+local script = G2L["57"];
+	local Plr = game.Players.LocalPlayer
+	
+	Plr:GetMouse().KeyDown:Connect(function(K)
+		if K == "x" then
+			if script.Parent.Visible == true then
+				script.Parent.Visible = false
+			elseif script.Parent.Visible == false then
+				script.Parent.Visible = true
+			end
+		end
+	end)
+	
+	
+	
+	local userInputService = game:GetService("UserInputService")
+	
+	local isCursorEnabled = false
+	
+	userInputService.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.X then
+			isCursorEnabled = not isCursorEnabled
+			userInputService.MouseIconEnabled = isCursorEnabled
+		end
+	end)
+end;
+task.spawn(C_57);
+-- StarterGui.Hellmet Hack.Gui futures.Hide/UnDelete Gui
+local function C_58()
+local script = G2L["58"];
+	script.Parent.Parent:SetAttribute("ResetOnSpawn", false)
+	
+	local userInputService = game:GetService("UserInputService")
+	local screenGui = script.Parent.Parent
+	
+	local function toggleVisibility()
+		screenGui.Enabled = not screenGui.Enabled
+	end
+	
+	userInputService.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.F3 then
+			toggleVisibility()
+		end
+	end)
+end;
+task.spawn(C_58);
+-- StarterGui.Hellmet Hack.ClickSound
+local function C_59()
+local script = G2L["59"];
+	local parent = script.Parent
+	
+	local selectSound = parent.Click
+	
+	local buttons = parent:GetDescendants()
+	for _, button in ipairs(buttons) do
+		if button:IsA("TextButton") or button:IsA("ImageButton") then
+			button.MouseButton1Click:Connect(function()
+				selectSound:Play()
+			end)
+		end
+	end
+end;
+task.spawn(C_59);
+
+return G2L["1"], require;
