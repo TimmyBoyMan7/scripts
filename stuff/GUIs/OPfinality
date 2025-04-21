@@ -1,8 +1,8 @@
 game:GetService("StarterGui"):SetCore("SendNotification", { 
 
-	Title = "Archived by toriko ;v";
+	Title = "what is up";
 
-	Text = "All hail Toriko the certified ball sucker";})
+	Text = "my skibidi";})
 
 Duration = 90;
 
