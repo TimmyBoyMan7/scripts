@@ -1,0 +1,272 @@
+--TimmyBoyMan7 On Github made this
+
+
+
+local UIS = game:GetService("UserInputService")
+local CoreGui = game:GetService("CoreGui")
+
+
+local gui = Instance.new("ScreenGui", CoreGui)
+gui.Name = "ReusableTemplateGUI"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 320, 0, 300)  
+frame.Position = UDim2.new(0.05, 0, 0.1, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BorderSizePixel = 0
+frame.Active = true
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
+
+
+local topBar = Instance.new("Frame", frame)
+topBar.Size = UDim2.new(1, 0, 0, 30)
+topBar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+topBar.BorderSizePixel = 0
+Instance.new("UICorner", topBar).CornerRadius = UDim.new(0, 8)
+
+
+local title = Instance.new("TextLabel", topBar)
+title.Size = UDim2.new(1, -100, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.Text = "Ultimate Trolling GUI"
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Font = Enum.Font.GothamBold
+title.TextSize = 16
+title.TextColor3 = Color3.new(1, 1, 1)
+title.BackgroundTransparency = 1
+
+
+local dragging, dragInput, dragStart, startPos
+topBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+topBar.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if dragging and input == dragInput then
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+
+local icon = Instance.new("TextButton", gui)
+icon.Size = UDim2.new(0, 40, 0, 40)
+icon.Position = UDim2.new(0.02, 0, 0.85, 0)
+icon.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+icon.Text = "🤡"
+icon.Visible = false
+icon.Active = true
+Instance.new("UICorner", icon).CornerRadius = UDim.new(1, 0)
+
+
+local draggingIcon, iconStartPos, iconStartDrag
+icon.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        draggingIcon = true
+        iconStartDrag = input.Position
+        iconStartPos = icon.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                draggingIcon = false
+            end
+        end)
+    end
+end)
+
+UIS.InputChanged:Connect(function(input)
+    if draggingIcon and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local delta = input.Position - iconStartDrag
+        icon.Position = UDim2.new(iconStartPos.X.Scale, iconStartPos.X.Offset + delta.X,
+            iconStartPos.Y.Scale, iconStartPos.Y.Offset + delta.Y)
+    end
+end)
+
+icon.MouseButton1Click:Connect(function()
+    icon.Visible = false
+    frame.Visible = true
+end)
+
+
+local isMin = false
+local isFull = false
+local originalSize = frame.Size
+local originalPosition = frame.Position
+
+
+local function makeBtn(color, offset, callback)
+    local btn = Instance.new("TextButton", topBar)
+    btn.Size = UDim2.new(0, 20, 0, 20)
+    btn.Position = UDim2.new(1, offset, 0.5, -10)
+    btn.AnchorPoint = Vector2.new(1, 0.5)
+    btn.BackgroundColor3 = color
+    btn.Text = ""
+    btn.BorderSizePixel = 0
+    btn.MouseButton1Click:Connect(callback)
+    return btn
+end
+
+
+makeBtn(Color3.fromRGB(0, 170, 255), -60, function()
+    if isFull then
+        frame.Size = originalSize
+        frame.Position = originalPosition
+    else
+        originalSize = frame.Size
+        originalPosition = frame.Position
+        frame.Size = UDim2.new(1, 0, 1, 0)
+        frame.Position = UDim2.new(0, 0, 0, 0)
+    end
+    isFull = not isFull
+end)
+
+
+makeBtn(Color3.fromRGB(255, 200, 0), -35, function()
+    isMin = not isMin
+    for _, child in ipairs(frame:GetChildren()) do
+        if child ~= topBar then
+            child.Visible = not isMin
+        end
+    end
+end)
+
+
+makeBtn(Color3.fromRGB(255, 65, 65), -10, function()
+    frame.Visible = false
+    icon.Visible = true
+end)
+
+
+
+local content = Instance.new("Frame", frame)
+content.Size = UDim2.new(1, 0, 1, -30)
+content.Position = UDim2.new(0, 0, 0, 30)
+content.BackgroundTransparency = 1
+
+
+local grid = Instance.new("UIGridLayout", content)
+grid.CellSize = UDim2.new(0, 140, 0, 30)
+grid.CellPadding = UDim2.new(0, 10, 0, 10)
+grid.FillDirection = Enum.FillDirection.Horizontal
+grid.SortOrder = Enum.SortOrder.LayoutOrder
+
+
+local Button1 = Instance.new("TextButton", content)
+Button1.Text = "Mass GUI"
+Button1.Font = Enum.Font.Gotham
+Button1.TextSize = 16
+Button1.TextColor3 = Color3.new(1, 1, 1)
+Button1.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button1.AutoButtonColor = true
+Instance.new("UICorner", Button1).CornerRadius = UDim.new(0, 6)
+Button1.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/GUIs/Mass%20GUI"))();
+end)
+
+
+local Button2 = Instance.new("TextButton", content)
+Button2.Text = "Touch Fling GUI"
+Button2.Font = Enum.Font.Gotham
+Button2.TextSize = 16
+Button2.TextColor3 = Color3.new(1, 1, 1)
+Button2.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button2.AutoButtonColor = true
+Instance.new("UICorner", Button2).CornerRadius = UDim.new(0, 6)
+Button2.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/Misc/Touch-Fling.txt"))();
+end)
+
+
+local Button3 = Instance.new("TextButton", content)
+Button3.Text = "Super Ring Parts"
+Button3.Font = Enum.Font.Gotham
+Button3.TextSize = 16
+Button3.TextColor3 = Color3.new(1, 1, 1)
+Button3.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button3.AutoButtonColor = true
+Instance.new("UICorner", Button3).CornerRadius = UDim.new(0, 6)
+Button3.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/Misc/Super-Ring-Parts.txt"))();
+end)
+
+
+local Button4 = Instance.new("TextButton", content)
+Button4.Text = "OPFinality GUI"
+Button4.Font = Enum.Font.Gotham
+Button4.TextSize = 16
+Button4.TextColor3 = Color3.new(1, 1, 1)
+Button4.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button4.AutoButtonColor = true
+Instance.new("UICorner", Button4).CornerRadius = UDim.new(0, 6)
+Button4.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/GUIs/OPfinality"))();
+end)
+
+
+local Button5 = Instance.new("TextButton", content)
+Button5.Text = "Telekanisis"
+Button5.Font = Enum.Font.Gotham
+Button5.TextSize = 16
+Button5.TextColor3 = Color3.new(1, 1, 1)
+Button5.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button5.AutoButtonColor = true
+Instance.new("UICorner", Button5).CornerRadius = UDim.new(0, 6)
+Button5.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/Misc/telekanisis.txt"))();
+end)
+
+
+local Button6 = Instance.new("TextButton", content)
+Button6.Text = "Starlight Backdoor"
+Button6.Font = Enum.Font.Gotham
+Button6.TextSize = 16
+Button6.TextColor3 = Color3.new(1, 1, 1)
+Button6.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button6.AutoButtonColor = true
+Instance.new("UICorner", Button6).CornerRadius = UDim.new(0, 6)
+Button6.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGetAsync("https://starlightrbx.netlify.app/"))()
+end)
+
+
+local Button7 = Instance.new("TextButton", content)
+Button7.Text = "Black Hole"
+Button7.Font = Enum.Font.Gotham
+Button7.TextSize = 16
+Button7.TextColor3 = Color3.new(1, 1, 1)
+Button7.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button7.AutoButtonColor = true
+Instance.new("UICorner", Button7).CornerRadius = UDim.new(0, 6)
+Button7.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/Misc/Black%20Hole"))();
+end)
+
+
+local Button8 = Instance.new("TextButton", content)
+Button8.Text = "JorkGUI"
+Button8.Font = Enum.Font.Gotham
+Button8.TextSize = 16
+Button8.TextColor3 = Color3.new(1, 1, 1)
+Button8.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+Button8.AutoButtonColor = true
+Instance.new("UICorner", Button8).CornerRadius = UDim.new(0, 6)
+Button8.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://github.com/TimmyBoyMan7/scripts/raw/refs/heads/main/stuff/Funny%20Things/JorkGUI.txt"))();
+end)
