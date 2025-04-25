@@ -1,4 +1,4 @@
--- Mass Control GUI (Fixed Minimize Functionality)
+-- Mass Control GUI with Constant Enforcement
 local Players = game:GetService("Players")
 local lp = Players.LocalPlayer
 local UIS = game:GetService("UserInputService")
@@ -75,13 +75,13 @@ local function makeBtn(color, offset, callback)
 	return btn
 end
 
--- Variables for state
+-- State variables
 local isMin = false
 local isFull = false
 local originalSize = frame.Size
 local originalPosition = frame.Position
 
--- Mini Icon Setup
+-- Mini Icon
 local icon = Instance.new("TextButton", gui)
 icon.Size = UDim2.new(0, 40, 0, 40)
 icon.Position = UDim2.new(0.02, 0, 0.85, 0)
@@ -91,7 +91,7 @@ icon.Visible = false
 icon.Active = true
 Instance.new("UICorner", icon).CornerRadius = UDim.new(1, 0)
 
--- Make Icon Draggable
+-- Icon dragging
 local draggingIcon = false
 local iconStartPos, iconStartDrag
 icon.InputBegan:Connect(function(input)
@@ -120,7 +120,7 @@ icon.MouseButton1Click:Connect(function()
 	frame.Visible = true
 end)
 
--- Fullscreen Button
+-- Fullscreen
 makeBtn(Color3.fromRGB(0, 170, 255), -60, function()
 	if isFull then
 		frame.Size = originalSize
@@ -134,13 +134,13 @@ makeBtn(Color3.fromRGB(0, 170, 255), -60, function()
 	isFull = not isFull
 end)
 
--- CLOSE => icon
+-- Close to icon
 makeBtn(Color3.fromRGB(255, 65, 65), -10, function()
 	frame.Visible = false
 	icon.Visible = true
 end)
 
--- MASS SLIDER
+-- Slider UI
 local slider = Instance.new("Frame", frame)
 slider.Size = UDim2.new(1, -40, 0, 6)
 slider.Position = UDim2.new(0, 20, 0, 70)
@@ -168,8 +168,11 @@ label.TextSize = 14
 label.Font = Enum.Font.Gotham
 label.Text = "Density: 0"
 
--- Apply Mass
+-- Mass logic
+local currentDensity = 0
+
 local function applyMass(density)
+	currentDensity = density
 	local char = lp.Character or lp.CharacterAdded:Wait()
 	for _, part in ipairs(char:GetDescendants()) do
 		if part:IsA("BasePart") then
@@ -179,9 +182,20 @@ local function applyMass(density)
 	end
 end
 
--- Slider Logic
-local draggingSlider = false
+-- Enforce loop
+task.spawn(function()
+	while true do
+		task.wait(0.5)
+		pcall(function()
+			if currentDensity > 0 then
+				applyMass(currentDensity)
+			end
+		end)
+	end
+end)
 
+-- Slider dragging
+local draggingSlider = false
 handle.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		draggingSlider = true
@@ -199,7 +213,7 @@ UIS.InputChanged:Connect(function(input)
 		local mouseX = input.Position.X
 		local relX = math.clamp(mouseX - slider.AbsolutePosition.X, 0, slider.AbsoluteSize.X)
 		local percent = relX / slider.AbsoluteSize.X
-		local density = math.floor(percent * 1000000)
+		local density = math.floor(percent * 100000000)
 
 		fill.Size = UDim2.new(percent, 0, 1, 0)
 		handle.Position = UDim2.new(0, relX - 6, -0.6, 0)
@@ -208,7 +222,7 @@ UIS.InputChanged:Connect(function(input)
 	end
 end)
 
--- Minimize Button (Fixed Logic)
+-- Minimize
 makeBtn(Color3.fromRGB(255, 200, 0), -35, function()
 	isMin = not isMin
 	for _, child in ipairs(frame:GetChildren()) do
