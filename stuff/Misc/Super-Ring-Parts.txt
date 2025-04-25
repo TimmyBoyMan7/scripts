@@ -423,5 +423,5 @@ local function SendChatMessage(message)
 end
 
 -- Send the chat message
-SendChatMessage("Super Ring Parts V1 By Rip_IKASI")
-SendChatMessage("😇Thank for using my Script, This is the latest version. ☠️☠️☠️Now, Let's Play Some Player!!!☠️☠️☠️. Rip_IKASI")
+SendChatMessage("   ")
+SendChatMessage("   ")
