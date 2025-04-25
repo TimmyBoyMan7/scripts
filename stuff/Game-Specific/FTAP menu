@@ -1,0 +1,9 @@
+
+-- PLEASE NOTE RUHUB IS IN BETA, SO IT COULD BE BUGGY FOR SOME DEVICES AS IT HAS ONLY BEEN TESTED FOR DESKTOP!
+
+getgenv().unlockmouse = true -- set to false if youre on android and dont have a mouse!
+getgenv().mousekeybind = "L" -- keybind to unlock and relock your mouse!
+getgenv().saveconfig = false -- set to true  if you want your configurations saved!
+
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/cooldawg123/RuHubFTAPrelease/refs/heads/main/official.lua",true))()
