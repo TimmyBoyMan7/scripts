@@ -1,0 +1,69 @@
+-- press y
+
+--// Pure Zero-G Space Tumble Script
+-- Press Y to toggle
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+local gravityOff = false
+local antiGravityForce
+
+--// Functions
+
+local function enableZeroGravity()
+    if not hrp then return end
+
+    humanoid.PlatformStand = true
+
+    -- Apply exact anti-gravity
+    antiGravityForce = Instance.new("BodyForce")
+    antiGravityForce.Force = Vector3.new(0, workspace.Gravity * hrp.AssemblyMass, 0)
+    antiGravityForce.Parent = hrp
+end
+
+local function disableZeroGravity()
+    humanoid.PlatformStand = false
+
+    if antiGravityForce then
+        antiGravityForce:Destroy()
+        antiGravityForce = nil
+    end
+
+    -- Clean reset movement
+    hrp.Velocity = Vector3.zero
+    hrp.RotVelocity = Vector3.zero
+end
+
+local function toggleZeroGravity()
+    gravityOff = not gravityOff
+    if gravityOff then
+        enableZeroGravity()
+    else
+        disableZeroGravity()
+    end
+end
+
+--// Keybind
+UIS.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.Y then
+        toggleZeroGravity()
+    end
+end)
+
+--// Respawn support
+player.CharacterAdded:Connect(function(newChar)
+    character = newChar
+    hrp = character:WaitForChild("HumanoidRootPart")
+    humanoid = character:FindFirstChildOfClass("Humanoid")
+    if gravityOff then
+        wait(1)
+        enableZeroGravity()
+    end
+end)
+
