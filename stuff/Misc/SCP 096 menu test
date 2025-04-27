@@ -1,0 +1,134 @@
+-- Made by FE SCRIPT STUDIOS
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 150, 0, 150)
+frame.Position = UDim2.new(0, 10, 0, 10)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.Parent = gui
+
+local title = Instance.new("TextLabel")
+title.Text = "SCP-096 Menu"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Size = UDim2.new(0, 150, 0, 20)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.Parent = frame
+
+local idleButton = Instance.new("TextButton")
+idleButton.Text = "Idle"
+idleButton.BackgroundColor3 = Color3.new(0.6, 0.6, 0.6)
+idleButton.TextColor3 = Color3.new(0, 0, 0)
+idleButton.Size = UDim2.new(0, 120, 0, 30)
+idleButton.Position = UDim2.new(0, 15, 0, 30)
+idleButton.Parent = frame
+
+local chaseButton = Instance.new("TextButton")
+chaseButton.Text = "Chase"
+chaseButton.BackgroundColor3 = Color3.new(0.6, 0.6, 0.6)
+chaseButton.TextColor3 = Color3.new(0, 0, 0)
+chaseButton.Size = UDim2.new(0, 120, 0, 30)
+chaseButton.Position = UDim2.new(0, 15, 0, 70)
+chaseButton.Parent = frame
+
+local despawnButton = Instance.new("TextButton")
+despawnButton.Text = "Despawn"
+despawnButton.BackgroundColor3 = Color3.new(0.6, 0.6, 0.6)
+despawnButton.TextColor3 = Color3.new(0, 0, 0)
+despawnButton.Size = UDim2.new(0, 120, 0, 30)
+despawnButton.Position = UDim2.new(0, 15, 0, 110)
+despawnButton.Parent = frame
+
+-- Function to play animation
+local function playAnimation(player, animId, loop, speed)
+    local Anim = Instance.new("Animation")
+    Anim.AnimationId = animId
+    local track = player.Character.Humanoid:LoadAnimation(Anim)
+    track.Looped = loop
+    track:Play()
+    track:AdjustSpeed(speed)
+    return track
+end
+
+-- Function to stop all animations
+local function stopAnimations(player)
+    local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid:Move(Vector3.new()) -- This will stop all animations
+        humanoid.WalkSpeed = 0 -- Stop player movement
+    end
+end
+
+-- Connect button actions
+local chaseAnimTrack = nil
+
+idleButton.MouseButton1Click:Connect(function()
+    if chaseAnimTrack then
+        chaseAnimTrack:Stop()
+    end
+    playAnimation(game.Players.LocalPlayer, "rbxassetid://180612465", false, 0.1) -- Idle animation ID, set to loop very fast
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+end)
+
+chaseButton.MouseButton1Click:Connect(function()
+    if chaseAnimTrack then
+        chaseAnimTrack:Stop()
+    end
+    chaseAnimTrack = playAnimation(game.Players.LocalPlayer, "rbxassetid://33169583", false, 0.1) -- Chase animation ID, set to loop very fast
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 33 -- Set player's speed to 33
+end)
+
+despawnButton.MouseButton1Click:Connect(function()
+    stopAnimations(game.Players.LocalPlayer)
+    if chaseAnimTrack then
+        chaseAnimTrack:Stop()
+    end
+    wait(0.1) -- Wait a short moment to ensure animations stop
+   
+    -- Reset humanoid properties
+    local humanoid = game.Players.LocalPlayer.Character.Humanoid
+    humanoid.Health = humanoid.MaxHealth
+    humanoid.WalkSpeed = humanoid.WalkSpeed
+    humanoid.JumpHeight = humanoid.JumpHeight
+   
+    -- Reset animations
+    for _, anim in ipairs(game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()) do
+        anim:Stop()
+    end
+end)
+
+wait(0.2)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe./main/Fling%20GUI"))()
+
+wait(0.2)
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 50)
+frame.Position = UDim2.new(1, -220, 1, -60) -- Bottom right corner
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BackgroundTransparency = 0.5 -- Semi-transparent background
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Text = "Made by BlockyYT"
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 0) -- Yellow text color
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Font = Enum.Font.SourceSans
+textLabel.TextSize = 20
+textLabel.Parent = frame
+
+-- Function to hide the GUI after 2 seconds
+local function hideGUI()
+    wait(2)
+    gui:Destroy()
+end
+
+-- Start the function to hide the GUI
+hideGUI()
