@@ -1,0 +1,165 @@
+-- Load the Orion library
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ZeeZee2Real/shlexware-Orion-main-source/refs/heads/main/gr"))()
+
+-- Create the main window
+local Window = OrionLib:MakeWindow({
+    Name = "Pilgrmageddon Automation",
+    HidePremium = true,
+    IntroText = "Pilgrmageddon Script"
+})
+
+-- Get the player and character
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Function to enable God Mode
+local function enableGodMode()
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid:GetPropertyChangedSignal("Health"):Connect(function()
+            humanoid.Health = humanoid.MaxHealth -- Prevents health from dropping
+        end)
+        humanoid.MaxHealth = math.huge
+        humanoid.Health = math.huge
+        print("God Mode Enabled")
+    else
+        print("Humanoid not found")
+    end
+end
+
+-- Function to set infinite mana
+local function setInfiniteMana()
+    local mana = character:FindFirstChild("Mana") -- Update with the actual mana object name if different
+    if mana then
+        mana.Changed:Connect(function()
+            mana.Value = math.huge
+        end)
+        mana.Value = math.huge
+        print("Infinite Mana Enabled")
+    else
+        print("Mana object not found")
+    end
+
+    -- Optional: Removing cooldown
+    for _, skill in pairs(character:GetChildren()) do
+        if skill:IsA("Tool") or skill:IsA("ModuleScript") then -- Assuming skills are tools or modules
+            skill.Cooldown = 0 -- Set cooldown to zero if such a property exists
+        end
+    end
+end
+
+-- Function to delete nametags
+local function deleteNametags()
+    for _, otherPlayer in pairs(game.Players:GetPlayers()) do
+        local nametag = otherPlayer:FindFirstChild("PlayerGui") and otherPlayer.PlayerGui:FindFirstChild("Nametag")
+        if nametag then
+            nametag:Destroy()
+            print("Nametag removed for player: " .. otherPlayer.Name)
+        end
+    end
+end
+
+-- Function to auto-find and open chests
+local function findAndOpenChests()
+    while true do
+        for _, chest in pairs(workspace:GetDescendants()) do
+            if chest.Name == "Chest" then
+                -- Teleport to chest
+                character.HumanoidRootPart.CFrame = chest.CFrame + Vector3.new(0, 3, 0) -- Slight offset above chest
+                wait(0.5)
+                -- Interact with chest (Replace with the actual interaction method)
+                if chest:FindFirstChild("ClickDetector") then
+                    fireclickdetector(chest.ClickDetector)
+                    print("Opened chest at position: " .. tostring(chest.Position))
+                    wait(1)
+                end
+            end
+        end
+        wait(5) -- Wait before searching again
+    end
+end
+
+-- Function to find and interact with mirrors
+local function findMirrors()
+    while true do
+        for _, mirror in pairs(workspace:GetDescendants()) do
+            if mirror.Name == "Mirror" then
+                -- Teleport to mirror
+                character.HumanoidRootPart.CFrame = mirror.CFrame + Vector3.new(0, 3, 0) -- Slight offset above mirror
+                wait(0.5)
+                -- Interact with mirror (Replace with the actual interaction method)
+                if mirror:FindFirstChild("ClickDetector") then
+                    fireclickdetector(mirror.ClickDetector)
+                    print("Interacted with mirror at position: " .. tostring(mirror.Position))
+                    wait(1)
+                end
+            end
+        end
+        wait(5) -- Wait before searching again
+    end
+end
+
+-- Function to set high damage
+local function setHighDamage()
+    for _, tool in pairs(character:GetChildren()) do
+        if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
+            local damageScript = tool:FindFirstChildOfClass("Script") -- Assuming there's a script controlling damage
+            if damageScript then
+                local damageValue = damageScript:FindFirstChild("Damage") -- Look for the damage variable
+                if damageValue then
+                    damageValue.Value = 99999 -- Set to a very high value
+                    print("Damage set to 99999 for tool: " .. tool.Name)
+                end
+            end
+        end
+    end
+end
+
+-- Add Orion UI elements
+local tab = Window:MakeTab({
+    Name = "Automation",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+tab:AddButton({
+    Name = "Enable God Mode",
+    Callback = enableGodMode
+})
+
+tab:AddButton({
+    Name = "Set Infinite Mana",
+    Callback = setInfiniteMana
+})
+
+tab:AddButton({
+    Name = "Delete Nametags",
+    Callback = deleteNametags
+})
+
+tab:AddButton({
+    Name = "Start Auto-Finding Chests",
+    Callback = function()
+        task.spawn(findAndOpenChests)
+    end
+})
+
+tab:AddButton({
+    Name = "Start Finding Mirrors",
+    Callback = function()
+        task.spawn(findMirrors)
+    end
+})
+
+tab:AddButton({
+    Name = "Set High Damage",
+    Callback = setHighDamage
+})
+
+-- Optional: Add a UI toggle to hide/show the Orion window
+OrionLib:MakeNotification({
+    Name = "Script Loaded",
+    Content = "Automation script is ready to use.",
+    Image = "rbxassetid://4483345998",
+    Time = 5
+})
