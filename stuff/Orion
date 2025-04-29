@@ -27,11 +27,11 @@ local OrionLib = {
 	SaveCfg = false
 }
 
---Feather Icons https://raw.githubusercontent.com/Baconamassado/lucideblox-icons/refs/heads/main/icons.json - Created by 7kayoh
+--Feather Icons https://raw.githubusercontent.com/Baconamassado/lucideblox-icons/refs/heads/main/loadicons.lua - Created by 7kayoh
 local Icons = {}
 
 local Success, Response = pcall(function()
-	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/Baconamassado/lucideblox-icons/refs/heads/main/icons.json")).icons
+	Icons = HttpService:JSONDecode(game:HttpGetAsync("https://raw.githubusercontent.com/Baconamassado/lucideblox-icons/refs/heads/main/loadicons.lua")).icons
 end)
 
 if not Success then
