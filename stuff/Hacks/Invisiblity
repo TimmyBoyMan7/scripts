@@ -16,7 +16,7 @@ local Part
 Part = Instance.new("Part", workspace)
 Part.Anchored = true
 Part.Size = Vector3.new(200, 1, 200)
-Part.CFrame = CFrame.new(0, -500, 0) --Set this to whatever you want, just far away from the map.
+Part.CFrame = CFrame.new(879.24, 8.20, -379.43) --Set this to whatever you want, just far away from the map.
 Part.CanCollide = true
 FakeCharacter.Parent = workspace
 FakeCharacter.HumanoidRootPart.CFrame = Part.CFrame * CFrame.new(0, 5, 0)
