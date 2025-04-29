@@ -1,5 +1,5 @@
 -- Load the Orion library
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ZeeZee2Real/shlexware-Orion-main-source/refs/heads/main/gr"))()
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Orion"))()
 
 -- Create the main window
 local Window = OrionLib:MakeWindow({
