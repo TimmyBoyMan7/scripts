@@ -1,0 +1,160 @@
+-- SERVICES
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local TweenService = game:GetService("TweenService")
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+-- GUI SETUP
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "MirrorTeleportGUI"
+ScreenGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 250, 0, 160)
+Frame.Position = UDim2.new(0.5, -125, 0.45, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
+Frame.Active = true
+Frame.Draggable = true
+Frame.BackgroundTransparency = 0.1
+Frame.Name = "MainFrame"
+Frame.AnchorPoint = Vector2.new(0.5, 0)
+
+Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Text = "🪞 Mirror Teleporter"
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.BackgroundTransparency = 1
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 18
+
+-- Close Button
+local CloseButton = Instance.new("TextButton", Frame)
+CloseButton.Size = UDim2.new(0, 25, 0, 25)
+CloseButton.Position = UDim2.new(1, -30, 0, 5)
+CloseButton.Text = "❌"
+CloseButton.BackgroundColor3 = Color3.fromRGB(80, 0, 0)
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.Font = Enum.Font.GothamBold
+CloseButton.TextSize = 14
+Instance.new("UICorner", CloseButton).CornerRadius = UDim.new(0, 6)
+
+-- Start/Stop Button
+local StartButton = Instance.new("TextButton", Frame)
+StartButton.Size = UDim2.new(0.9, 0, 0, 30)
+StartButton.Position = UDim2.new(0.05, 0, 0, 40)
+StartButton.Text = "▶ Start Mirror Teleport"
+StartButton.BackgroundColor3 = Color3.fromRGB(60, 130, 255)
+StartButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+StartButton.Font = Enum.Font.Gotham
+StartButton.TextSize = 14
+Instance.new("UICorner", StartButton).CornerRadius = UDim.new(0, 8)
+
+-- Delay Label
+local DelayLabel = Instance.new("TextLabel", Frame)
+DelayLabel.Size = UDim2.new(0.9, 0, 0, 20)
+DelayLabel.Position = UDim2.new(0.05, 0, 0, 80)
+DelayLabel.Text = "⏱️ Interval: 3s"
+DelayLabel.BackgroundTransparency = 1
+DelayLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+DelayLabel.Font = Enum.Font.Gotham
+DelayLabel.TextSize = 13
+DelayLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Delay Input
+local DelayInput = Instance.new("TextBox", Frame)
+DelayInput.Size = UDim2.new(0.9, 0, 0, 25)
+DelayInput.Position = UDim2.new(0.05, 0, 0, 100)
+DelayInput.PlaceholderText = "Enter delay (1–10)"
+DelayInput.Text = "3"
+DelayInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+DelayInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+DelayInput.Font = Enum.Font.Gotham
+DelayInput.TextSize = 13
+DelayInput.ClearTextOnFocus = false
+Instance.new("UICorner", DelayInput).CornerRadius = UDim.new(0, 6)
+
+-- STATE
+local visited = {}
+local running = false
+local delay = 3
+
+-- TELEPORT FUNCTION
+local function teleportToMirrors()
+	if running then return end
+	running = true
+	StartButton.Text = "⏹ Stop"
+	StartButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
+
+	local originalCFrame = HumanoidRootPart.CFrame
+	local Mirrors = workspace:FindFirstChild("Mirrors")
+	if not Mirrors or not Mirrors:IsA("Folder") then
+		warn("[Mirror Teleport GUI] No 'Mirrors' folder found.")
+		StartButton.Text = "▶ Start Mirror Teleport"
+		StartButton.BackgroundColor3 = Color3.fromRGB(60, 130, 255)
+		running = false
+		return
+	end
+
+	local mirrorsToVisit = {}
+	for _, obj in ipairs(Mirrors:GetDescendants()) do
+		if obj:IsA("ProximityPrompt") and obj.Parent:IsA("BasePart") then
+			local part = obj.Parent
+			if not visited[part] then
+				table.insert(mirrorsToVisit, part)
+				visited[part] = true
+			end
+		end
+	end
+
+	if #mirrorsToVisit == 0 then
+		warn("[Mirror Teleport GUI] No mirrors found.")
+		StartButton.Text = "▶ Start Mirror Teleport"
+		StartButton.BackgroundColor3 = Color3.fromRGB(60, 130, 255)
+		running = false
+		return
+	end
+
+	for _, mirror in ipairs(mirrorsToVisit) do
+		if not running then
+			print("[Mirror Teleport GUI] Stopped early, returning.")
+			break
+		end
+		HumanoidRootPart.CFrame = mirror.CFrame + Vector3.new(0, 5, 0)
+		print("[Mirror Teleport GUI] Teleported to: " .. mirror.Name)
+		task.wait(delay)
+	end
+
+	-- Return to original position
+	HumanoidRootPart.CFrame = originalCFrame
+	print("[Mirror Teleport GUI] Returned to original position.")
+
+	StartButton.Text = "▶ Start Mirror Teleport"
+	StartButton.BackgroundColor3 = Color3.fromRGB(60, 130, 255)
+	running = false
+end
+
+-- BUTTON FUNCTIONALITY
+StartButton.MouseButton1Click:Connect(function()
+	if running then
+		-- Stop mid-run
+		running = false
+	else
+		teleportToMirrors()
+	end
+end)
+
+DelayInput:GetPropertyChangedSignal("Text"):Connect(function()
+	local val = tonumber(DelayInput.Text)
+	if val and val >= 1 and val <= 10 then
+		delay = val
+		DelayLabel.Text = "⏱️ Interval: " .. tostring(delay) .. "s"
+	end
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
