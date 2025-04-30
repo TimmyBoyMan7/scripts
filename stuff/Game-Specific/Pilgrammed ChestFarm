@@ -1,174 +1,111 @@
+-- YOU NEED A MACRO TO PRESS G
+-- set bed to darkgreen retreat
+-- you must set the wait time to 15, or anticheat will kick u
+-- chests with enemys nearby are blacklisted
+-- YOU MUST JOIN A SERVER WITH LOTS OF PLAYERS. the more players in a server, the faster the chests respawn.
+
+
+
 -- SERVICES
 local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
 local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
 
--- GUI SETUP
-local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
-ScreenGui.Name = "ChestTeleportGUI"
-ScreenGui.ResetOnSpawn = false
+-- SETTINGS
+local delay = 3 -- Seconds between chest teleports
 
-local Frame = Instance.new("Frame", ScreenGui)
-Frame.Size = UDim2.new(0, 250, 0, 160)
-Frame.Position = UDim2.new(0.5, -125, 0.4, 0)
-Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Frame.BorderSizePixel = 0
-Frame.Active = true
-Frame.Draggable = true
-Frame.BackgroundTransparency = 0.1
-Frame.Name = "MainFrame"
-Frame.AnchorPoint = Vector2.new(0.5, 0)
+-- CHEST FOLDERS TO FARM (with blacklists)
+local chestFolders = {
+    { folderName = "GoldChests", blacklist = { "Glider", "Viking" } },
+    { folderName = "Chests", blacklist = { "Pigface", "Mountaintop", "Swamp" } }
+}
 
-local UICorner = Instance.new("UICorner", Frame)
-UICorner.CornerRadius = UDim.new(0, 12)
-
-local Title = Instance.new("TextLabel", Frame)
-Title.Text = "📦 Chest Teleporter"
-Title.Size = UDim2.new(1, 0, 0, 30)
-Title.BackgroundTransparency = 1
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.Font = Enum.Font.GothamBold
-Title.TextSize = 18
-
--- Start/Stop Button
-local StartButton = Instance.new("TextButton", Frame)
-StartButton.Size = UDim2.new(0.9, 0, 0, 30)
-StartButton.Position = UDim2.new(0.05, 0, 0, 40)
-StartButton.Text = "▶ Start Teleport"
-StartButton.BackgroundColor3 = Color3.fromRGB(60, 130, 255)
-StartButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-StartButton.Font = Enum.Font.Gotham
-StartButton.TextSize = 14
-local StartCorner = Instance.new("UICorner", StartButton)
-StartCorner.CornerRadius = UDim.new(0, 8)
-
--- Loop Toggle
-local LoopToggle = Instance.new("TextButton", Frame)
-LoopToggle.Size = UDim2.new(0.9, 0, 0, 25)
-LoopToggle.Position = UDim2.new(0.05, 0, 0, 75)
-LoopToggle.Text = "🔁 Loop: OFF"
-LoopToggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-LoopToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-LoopToggle.Font = Enum.Font.Gotham
-LoopToggle.TextSize = 13
-local LoopCorner = Instance.new("UICorner", LoopToggle)
-LoopCorner.CornerRadius = UDim.new(0, 6)
-
--- Delay Slider Label
-local DelayLabel = Instance.new("TextLabel", Frame)
-DelayLabel.Size = UDim2.new(0.9, 0, 0, 20)
-DelayLabel.Position = UDim2.new(0.05, 0, 0, 105)
-DelayLabel.Text = "⏱️ Delay: 3s"
-DelayLabel.BackgroundTransparency = 1
-DelayLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-DelayLabel.Font = Enum.Font.Gotham
-DelayLabel.TextSize = 13
-DelayLabel.TextXAlignment = Enum.TextXAlignment.Left
-
--- Delay Slider
-local DelaySlider = Instance.new("TextBox", Frame)
-DelaySlider.Size = UDim2.new(0.9, 0, 0, 25)
-DelaySlider.Position = UDim2.new(0.05, 0, 0, 125)
-DelaySlider.PlaceholderText = "Enter delay (1-10)"
-DelaySlider.Text = "3"
-DelaySlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-DelaySlider.TextColor3 = Color3.fromRGB(255, 255, 255)
-DelaySlider.Font = Enum.Font.Gotham
-DelaySlider.TextSize = 13
-DelaySlider.ClearTextOnFocus = false
-local SliderCorner = Instance.new("UICorner", DelaySlider)
-SliderCorner.CornerRadius = UDim.new(0, 6)
-
--- Close Button (X)
-local CloseButton = Instance.new("TextButton", Frame)
-CloseButton.Size = UDim2.new(0.1, 0, 0.1, 0)
-CloseButton.Position = UDim2.new(1, -30, 0, 0)
-CloseButton.Text = "X"
-CloseButton.BackgroundColor3 = Color3.fromRGB(255, 80, 80)
-CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-CloseButton.Font = Enum.Font.Gotham
-CloseButton.TextSize = 18
-local CloseCorner = Instance.new("UICorner", CloseButton)
-CloseCorner.CornerRadius = UDim.new(0, 8)
-
--- STATE
-local running = false
-local loopEnabled = false
-local delay = 3
-
--- MAIN TELEPORT FUNCTION
-local function teleportToChests()
-    local Chests = workspace:FindFirstChild("Chests")
-    if not Chests or not Chests:IsA("Folder") then
-        warn("[Chest Teleport GUI] No 'Chests' folder in workspace.")
-        return
-    end
-
-    -- Save original position
-    local originalCFrame = HumanoidRootPart.CFrame
-
-    local function getAvailableChests()
-        local chestList = {}
-        for _, model in ipairs(Chests:GetChildren()) do
-            if model:IsA("Model") and model:FindFirstChild("Root") and model.Root:IsA("BasePart") then
-                table.insert(chestList, model)
-            end
-        end
-        return chestList
-    end
-
-    repeat
-        local availableChests = getAvailableChests()
-        if #availableChests == 0 then
-            warn("[Chest Teleport GUI] No more chests available.")
-            break
-        end
-
-        for _, model in ipairs(availableChests) do
-            if not running then break end
-            local root = model:FindFirstChild("Root")
-            if root and root:IsA("BasePart") and HumanoidRootPart then
-                HumanoidRootPart.CFrame = root.CFrame + Vector3.new(0, 5, 0)
-                print("[Chest Teleport GUI] Teleported to: " .. model.Name)
-                task.wait(delay)
-            end
-        end
-    until not loopEnabled or not running
-
-    -- Return to original position
-    if HumanoidRootPart then
-        HumanoidRootPart.CFrame = originalCFrame
-        print("[Chest Teleport GUI] Returned to original position.")
-    end
+-- FUNCTION TO WAIT FOR CHARACTER
+local function getHumanoidRootPart()
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    return character:WaitForChild("HumanoidRootPart")
 end
 
--- BUTTONS FUNCTIONALITY
-StartButton.MouseButton1Click:Connect(function()
-    running = not running
-    StartButton.Text = running and "⏹ Stop Teleport" or "▶ Start Teleport"
-    StartButton.BackgroundColor3 = running and Color3.fromRGB(255, 80, 80) or Color3.fromRGB(60, 130, 255)
-    if running then
-        teleportToChests()
+-- BLACKLIST CHECK
+local function isBlacklisted(name, blacklist)
+    for _, blockedName in ipairs(blacklist) do
+        if name == blockedName then
+            return true
+        end
+    end
+    return false
+end
+
+-- GET SORTED CHESTS FROM A FOLDER
+local function getSortedChests(folderName, blacklist, rootPosition)
+    local result = {}
+    local folder = workspace:FindFirstChild(folderName)
+    if folder and folder:IsA("Folder") then
+        for _, model in ipairs(folder:GetChildren()) do
+            if model:IsA("Model") and model:FindFirstChild("Root") and model.Root:IsA("BasePart") then
+                if not isBlacklisted(model.Name, blacklist) then
+                    table.insert(result, model)
+                end
+            end
+        end
+        table.sort(result, function(a, b)
+            local distA = (a.Root.Position - rootPosition).Magnitude
+            local distB = (b.Root.Position - rootPosition).Magnitude
+            return distA < distB
+        end)
+    end
+    return result
+end
+
+-- MAIN LOOP
+task.spawn(function()
+    while true do
+        local HumanoidRootPart = getHumanoidRootPart()
+        local originalCFrame = HumanoidRootPart.CFrame
+
+        local chestFound = false
+
+        for _, chestEntry in ipairs(chestFolders) do
+            local sortedChests = getSortedChests(chestEntry.folderName, chestEntry.blacklist, HumanoidRootPart.Position)
+
+            if #sortedChests > 0 then
+                chestFound = true
+                for _, model in ipairs(sortedChests) do
+                    -- Ensure character still exists before teleporting
+                    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                        HumanoidRootPart = LocalPlayer.Character.HumanoidRootPart
+                        HumanoidRootPart.CFrame = model.Root.CFrame + Vector3.new(0, 5, 0)
+                        print("[ChestTeleporter] Teleported to " .. chestEntry.folderName .. ": " .. model.Name)
+                        task.wait(delay)
+                    else
+                        break
+                    end
+                end
+            end
+        end
+
+        -- Return to original position if still alive
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            HumanoidRootPart = LocalPlayer.Character.HumanoidRootPart
+            HumanoidRootPart.CFrame = originalCFrame
+            print("[ChestTeleporter] Returned to original position.")
+        end
+
+        if not chestFound then
+            print("[ChestTeleporter] No chests found. Waiting for respawn...")
+            repeat
+                task.wait(1)
+                HumanoidRootPart = getHumanoidRootPart()
+                chestFound = false
+                for _, entry in ipairs(chestFolders) do
+                    if #getSortedChests(entry.folderName, entry.blacklist, HumanoidRootPart.Position) > 0 then
+                        chestFound = true
+                        break
+                    end
+                end
+            until chestFound
+        end
     end
 end)
 
-LoopToggle.MouseButton1Click:Connect(function()
-    loopEnabled = not loopEnabled
-    LoopToggle.Text = loopEnabled and "🔁 Loop: ON" or "🔁 Loop: OFF"
-    LoopToggle.BackgroundColor3 = loopEnabled and Color3.fromRGB(80, 150, 80) or Color3.fromRGB(50, 50, 50)
-end)
-
-DelaySlider:GetPropertyChangedSignal("Text"):Connect(function()
-    local val = tonumber(DelaySlider.Text)
-    if val and val >= 1 and val <= 10 then
-        delay = val
-        DelayLabel.Text = "⏱️ Delay: " .. tostring(val) .. "s"
-    end
-end)
-
--- Close the GUI when the X button is clicked
-CloseButton.MouseButton1Click:Connect(function()
-    ScreenGui:Destroy()
-end)
