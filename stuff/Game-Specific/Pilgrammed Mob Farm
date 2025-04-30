@@ -1,0 +1,149 @@
+-- Wait for game and character
+repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer and game.Players.LocalPlayer.Character
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Store original position
+local originalCFrame = hrp.CFrame
+
+-- Farming settings
+local farmingEnabled = false
+local healthSavingEnabled = true
+local debounceHealth = false
+local cooldownTime = 0.3
+local enemySwitchInterval = 4
+local returnWaitTime = 5
+
+-- Target folders (ordered by priority)
+local mobsFolder = workspace:WaitForChild("Mobs")
+local targetFolderNames = {
+    "Desert1", "Desert2", "Prairie1", "Prairie2", "Prairie3",
+    "PrairieCave1", "PrairieCave2",
+}
+
+-- Whitelist of model names
+local whitelist = {
+    ["Thief"] = true,
+    ["Green Slime"] = true,
+    ["Awesome Thief"] = true,
+    ["Giant Theif"] = true,
+    ["Pebble"] = true,
+    ["Cactus Man"] = true,
+	["Raider Ranger"] = true,
+	["Raider"] = true,
+}
+
+-- Teleport utility
+local function teleportTo(position)
+    if hrp and hrp.Parent then
+        hrp.CFrame = CFrame.new(position + Vector3.new(0, 5, 0))
+    end
+end
+
+-- Get mobs from the highest-priority folder with available targets
+local function getValidMobModels()
+    for _, folderName in ipairs(targetFolderNames) do
+        local folder = mobsFolder:FindFirstChild(folderName)
+        if folder and folder:IsA("Folder") then
+            local models = {}
+            for _, model in ipairs(folder:GetChildren()) do
+                if model:IsA("Model") and whitelist[model.Name] then
+                    local mobHRP = model:FindFirstChild("HumanoidRootPart")
+                    local mobHumanoid = model:FindFirstChildOfClass("Humanoid")
+                    if mobHRP and mobHumanoid and mobHumanoid.Health > 0 then
+                        table.insert(models, model)
+                    end
+                end
+            end
+            if #models > 0 then
+                return models
+            end
+        end
+    end
+    return {}
+end
+
+-- Wait a few seconds before returning home, cancel if enemies appear
+local function waitForEnemiesBeforeReturn()
+    local start = tick()
+    while tick() - start < returnWaitTime do
+        task.wait(0.1)
+        if #getValidMobModels() > 0 then
+            print("New enemy spawned during return delay. Staying in combat.")
+            return false
+        end
+    end
+    return true
+end
+
+-- Auto health monitoring
+task.spawn(function()
+    while true do
+        task.wait(0.1)
+        if farmingEnabled and healthSavingEnabled and humanoid and humanoid.Health < 75 and not debounceHealth then
+            debounceHealth = true
+            print("Low HP detected! Retreating for 15 seconds.")
+            teleportTo(originalCFrame.Position)
+            task.wait(15)
+            debounceHealth = false
+        end
+    end
+end)
+
+-- Toggle farming with key K
+game:GetService("UserInputService").InputBegan:Connect(function(input, processed)
+    if not processed and input.KeyCode == Enum.KeyCode.K then
+        farmingEnabled = not farmingEnabled
+        print("Mob farming is now " .. (farmingEnabled and "ENABLED" or "DISABLED"))
+    end
+end)
+
+-- Main farming loop
+task.spawn(function()
+    while true do
+        if farmingEnabled and not debounceHealth then
+            local mobModels = getValidMobModels()
+
+            if #mobModels == 0 then
+                print("No mobs found. Waiting...")
+                while farmingEnabled and not debounceHealth do
+                    task.wait(1)
+                    mobModels = getValidMobModels()
+                    if #mobModels > 0 then
+                        print("New mob detected.")
+                        break
+                    end
+                end
+            end
+
+            for i, model in ipairs(mobModels) do
+                if not farmingEnabled or debounceHealth then break end
+
+                local mobHRP = model:FindFirstChild("HumanoidRootPart")
+                local mobHumanoid = model:FindFirstChildOfClass("Humanoid")
+
+                if mobHRP and mobHumanoid then
+                    teleportTo(mobHRP.Position)
+                    print("Attacking model #" .. i .. ": " .. model.Name)
+
+                    local startTime = tick()
+                    while farmingEnabled and not debounceHealth and (tick() - startTime < enemySwitchInterval) do
+                        task.wait(0.1)
+                    end
+
+                    task.wait(cooldownTime)
+                end
+            end
+
+            -- Wait before returning, cancel if enemies reappear
+            if waitForEnemiesBeforeReturn() then
+                teleportTo(originalCFrame.Position)
+                print("Returned to original position.")
+            end
+        end
+        task.wait(0.5)
+    end
+end)
