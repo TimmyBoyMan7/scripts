@@ -1,6 +1,6 @@
 -- YOU NEED A MACRO TO PRESS G
 -- set bed to darkgreen retreat
--- you must set the wait time to 15, or anticheat will kick u
+-- you must set the wait time to 12, or anticheat will kick u
 -- chests with enemys nearby are blacklisted
 -- YOU MUST JOIN A SERVER WITH LOTS OF PLAYERS. the more players in a server, the faster the chests respawn.
 
@@ -13,12 +13,18 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
 -- SETTINGS
-local delay = 3 -- Seconds between chest teleports
+local delay = 12 -- Seconds between chest teleports
 
 -- CHEST FOLDERS TO FARM (with blacklists)
 local chestFolders = {
-    { folderName = "GoldChests", blacklist = { "Glider", "Viking" } },
-    { folderName = "Chests", blacklist = { "Pigface", "Mountaintop", "Swamp" } }
+    {
+        folderName = "GoldChests",
+        blacklist = { "Glider", "Viking" }
+    },
+    {
+        folderName = "Chests",
+        blacklist = { "Pigface", "MountainTop", "Swamp", "Underground" }
+    }
 }
 
 -- FUNCTION TO WAIT FOR CHARACTER
@@ -49,6 +55,8 @@ local function getSortedChests(folderName, blacklist, rootPosition)
                 end
             end
         end
+
+        -- Sort chests by distance
         table.sort(result, function(a, b)
             local distA = (a.Root.Position - rootPosition).Magnitude
             local distB = (b.Root.Position - rootPosition).Magnitude
@@ -67,16 +75,18 @@ task.spawn(function()
         local chestFound = false
 
         for _, chestEntry in ipairs(chestFolders) do
-            local sortedChests = getSortedChests(chestEntry.folderName, chestEntry.blacklist, HumanoidRootPart.Position)
+            local folderName = chestEntry.folderName
+            local blacklist = chestEntry.blacklist or {}
+
+            local sortedChests = getSortedChests(folderName, blacklist, HumanoidRootPart.Position)
 
             if #sortedChests > 0 then
                 chestFound = true
                 for _, model in ipairs(sortedChests) do
-                    -- Ensure character still exists before teleporting
                     if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                         HumanoidRootPart = LocalPlayer.Character.HumanoidRootPart
                         HumanoidRootPart.CFrame = model.Root.CFrame + Vector3.new(0, 5, 0)
-                        print("[ChestTeleporter] Teleported to " .. chestEntry.folderName .. ": " .. model.Name)
+                        print("[ChestTeleporter] Teleported to " .. folderName .. ": " .. model.Name)
                         task.wait(delay)
                     else
                         break
@@ -108,4 +118,3 @@ task.spawn(function()
         end
     end
 end)
-
