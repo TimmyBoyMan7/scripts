@@ -1,72 +1,65 @@
--- Artificial Speed Boost for WASD - No Falling Over Version
+--TURN ON NOCLIP
+
+-- Obvious Artificial WASD Speed Boost Script (Exploit Style)
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local hrp = character:WaitForChild("HumanoidRootPart")
 local humanoid = character:WaitForChild("Humanoid")
 
+-- Disable default Roblox movement to take full control
+humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
 -- Movement settings
-local boostSpeed = 5 -- lolwut?
-local moveDirection = Vector3.zero
-local keyMap = {
-	W = Enum.KeyCode.W,
-	A = Enum.KeyCode.A,
-	S = Enum.KeyCode.S,
-	D = Enum.KeyCode.D
-}
-local inputState = {
+local stepDistance = 0.25 -- studs per tick (visibly strong)
+local stepInterval = 0.01 -- seconds
+
+-- Track which keys are held
+local movementKeys = {
 	W = false,
 	A = false,
 	S = false,
-	D = false
+	D = false,
 }
 
--- Handle key presses
+-- Key press detection
 UserInputService.InputBegan:Connect(function(input, gpe)
 	if gpe then return end
-	for key, code in pairs(keyMap) do
-		if input.KeyCode == code then
-			inputState[key] = true
-		end
-	end
+	if input.KeyCode == Enum.KeyCode.W then movementKeys.W = true end
+	if input.KeyCode == Enum.KeyCode.A then movementKeys.A = true end
+	if input.KeyCode == Enum.KeyCode.S then movementKeys.S = true end
+	if input.KeyCode == Enum.KeyCode.D then movementKeys.D = true end
 end)
 
 UserInputService.InputEnded:Connect(function(input, gpe)
-	for key, code in pairs(keyMap) do
-		if input.KeyCode == code then
-			inputState[key] = false
-		end
-	end
+	if input.KeyCode == Enum.KeyCode.W then movementKeys.W = false end
+	if input.KeyCode == Enum.KeyCode.A then movementKeys.A = false end
+	if input.KeyCode == Enum.KeyCode.S then movementKeys.S = false end
+	if input.KeyCode == Enum.KeyCode.D then movementKeys.D = false end
 end)
 
--- Boost logic on Heartbeat
-RunService.Heartbeat:Connect(function(dt)
-	if not (character and hrp and humanoid and humanoid.Health > 0) then return end
+-- Main movement loop
+task.spawn(function()
+	while true do
+		if hrp and humanoid.Health > 0 then
+			local moveVector = Vector3.zero
+			local cf = hrp.CFrame
 
-	-- Determine movement direction relative to character
-	local direction = Vector3.zero
-	local cf = hrp.CFrame
+			-- Construct movement direction based on keys
+			if movementKeys.W then moveVector += cf.LookVector end
+			if movementKeys.S then moveVector -= cf.LookVector end
+			if movementKeys.D then moveVector += cf.RightVector end
+			if movementKeys.A then moveVector -= cf.RightVector end
 
-	if inputState.W then direction += cf.LookVector end
-	if inputState.S then direction -= cf.LookVector end
-	if inputState.D then direction += cf.RightVector end
-	if inputState.A then direction -= cf.RightVector end
-
-	if direction.Magnitude > 0 then
-		direction = direction.Unit * boostSpeed
-	else
-		direction = Vector3.zero
+			if moveVector.Magnitude > 0 then
+				moveVector = moveVector.Unit * stepDistance
+				hrp.CFrame = hrp.CFrame + moveVector
+				print("Moving direction:", moveVector)
+			end
+		end
+		task.wait(stepInterval)
 	end
-
-	-- Apply movement by adding to current velocity
-	local currentVel = hrp.AssemblyLinearVelocity
-	local vertical = Vector3.new(0, currentVel.Y, 0) -- preserve Y velocity (gravity, jumping)
-	local horizontal = Vector3.new(currentVel.X, 0, currentVel.Z)
-
-	local finalVelocity = horizontal + direction
-	hrp.AssemblyLinearVelocity = finalVelocity + vertical
 end)
