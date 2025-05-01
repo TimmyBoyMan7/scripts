@@ -1,0 +1,41 @@
+-- FOR GAMES THAT FORCE WALKSPEED CONTANTLY.
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:WaitForChild("Humanoid")
+
+
+humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+local stepDistance = 0.5 -- visibly large
+local stepInterval = 0.01
+local holdingW = false
+
+
+UserInputService.InputBegan:Connect(function(input, gpe)
+	if not gpe and input.KeyCode == Enum.KeyCode.W then
+		holdingW = true
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input, gpe)
+	if input.KeyCode == Enum.KeyCode.W then
+		holdingW = false
+	end
+end)
+
+
+task.spawn(function()
+	while true do
+		if holdingW and hrp and humanoid.Health > 0 then
+			-- Move forward and print for debug
+			hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * stepDistance
+			print("if your reading this then the script works :money_mouth:")
+		end
+		task.wait(stepInterval)
+	end
+end)
