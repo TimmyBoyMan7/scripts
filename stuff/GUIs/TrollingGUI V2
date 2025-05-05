@@ -1,0 +1,193 @@
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "TrollingGUI"
+gui.ResetOnSpawn = false
+
+local mainFrame = Instance.new("Frame", gui)
+mainFrame.Size = UDim2.new(0, 600, 0, 400) 
+mainFrame.Position = UDim2.new(0.5, -300, 0.5, -200)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+mainFrame.BorderSizePixel = 0
+mainFrame.ClipsDescendants = true
+
+local topBar = Instance.new("Frame", mainFrame)
+topBar.Size = UDim2.new(1, 0, 0, 30)
+topBar.Position = UDim2.new(0, 0, 0, 0)
+topBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+
+local dragging, dragStart, startPos
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = mainFrame.Position
+	end
+end)
+
+topBar.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = false
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = input.Position - dragStart
+		mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+local closeBtn = Instance.new("TextButton", topBar)
+closeBtn.Size = UDim2.new(0, 30, 1, 0)
+closeBtn.Position = UDim2.new(1, -30, 0, 0)
+closeBtn.Text = "X"
+closeBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+closeBtn.TextColor3 = Color3.fromRGB(255, 80, 80)
+closeBtn.BorderSizePixel = 0
+closeBtn.MouseButton1Click:Connect(function()
+	gui.Enabled = false
+end)
+
+local sidebar = Instance.new("Frame", mainFrame)
+sidebar.Size = UDim2.new(0, 120, 1, -30)
+sidebar.Position = UDim2.new(0, 0, 0, 30)
+sidebar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+
+local hamburger = Instance.new("TextButton", topBar)
+hamburger.Size = UDim2.new(0, 30, 1, 0)
+hamburger.Text = "≡"
+hamburger.TextSize = 20
+hamburger.Position = UDim2.new(0, 0, 0, 0)
+hamburger.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+hamburger.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local contentFrame = Instance.new("Frame", mainFrame)
+contentFrame.Size = UDim2.new(1, -120, 1, -30)
+contentFrame.Position = UDim2.new(0, 120, 0, 30)
+contentFrame.BackgroundTransparency = 1
+
+local tooltip = Instance.new("TextLabel", gui)
+tooltip.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+tooltip.TextColor3 = Color3.fromRGB(255, 255, 255)
+tooltip.TextSize = 14
+tooltip.Text = ""
+tooltip.Visible = false
+tooltip.BorderSizePixel = 0
+tooltip.ZIndex = 10
+tooltip.BackgroundTransparency = 0.1
+tooltip.AutomaticSize = Enum.AutomaticSize.XY
+tooltip.TextWrapped = true
+tooltip.TextXAlignment = Enum.TextXAlignment.Left
+tooltip.TextYAlignment = Enum.TextYAlignment.Top
+
+UIS.InputChanged:Connect(function(input)
+	if tooltip.Visible and input.UserInputType == Enum.UserInputType.MouseMovement then
+		tooltip.Position = UDim2.new(0, input.Position.X + 10, 0, input.Position.Y + 10)
+	end
+end)
+
+local tabData = {
+	["Local Player"] = {
+		{Name = "MovementHax", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "SuperSpeed wow"},
+		{Name = "Mass GUI", URL = "https://pastebin.com/raw/YOUR_SCRIPT_2", Tip = "You can push big parts I guess"},
+		{Name = "Noclip", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Self Explanitory"}
+	},
+	["Hubs/GUIs"] = {
+		{Name = "Trolling GUI V1", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "The Old Trolling GUI"},
+		{Name = "EZ hub", URL = "https://pastebin.com/raw/YOUR_SCRIPT_2", Tip = "A better hub fr"},
+		{Name = "OPfinality", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "A big insperation for this GUI"}
+	},
+	["Annoy Scripts"] = {
+		{Name = "Spam Dance", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "Endless dance emote"},
+		{Name = "Weird Walk", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "Makes you walk funny"},
+		{Name = "Random Sounds", URL = "https://pastebin.com/raw/YOUR_SCRIPT_6", Tip = "Plays random funny sounds"}
+	},
+	["Meme Scripts"] = {
+		{Name = "Rickroll GUI", URL = "https://pastebin.com/raw/YOUR_SCRIPT_7", Tip = "Shows a Rick Astley window"},
+		{Name = "Banana Gun", URL = "https://pastebin.com/raw/YOUR_SCRIPT_8", Tip = "Shoots bananas"},
+		{Name = "Flying Toilet", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "Become a flying toilet"}
+	}
+}
+
+local tabs = {}
+
+local function showTab(name)
+	for _, frame in pairs(tabs) do
+		frame.Visible = false
+	end
+	if tabs[name] then
+		tabs[name].Visible = true
+	end
+end
+
+local i = 0
+for tabName, scripts in pairs(tabData) do
+	i += 1
+	local btn = Instance.new("TextButton", sidebar)
+	btn.Size = UDim2.new(1, 0, 0, 40)
+	btn.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
+	btn.Text = tabName
+	btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.BorderSizePixel = 0
+
+	local tabFrame = Instance.new("Frame", contentFrame)
+	tabFrame.Size = UDim2.new(1, 0, 1, 0)
+	tabFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	tabFrame.Visible = false
+	tabs[tabName] = tabFrame
+
+	for j, data in ipairs(scripts) do
+		local scriptBtn = Instance.new("TextButton", tabFrame)
+		scriptBtn.Size = UDim2.new(0, 250, 0, 30)
+		scriptBtn.Position = UDim2.new(0, 20, 0, 20 + (j - 1) * 40)
+		scriptBtn.Text = data.Name
+		scriptBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+		scriptBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+		scriptBtn.BorderSizePixel = 0
+
+		scriptBtn.MouseButton1Click:Connect(function()
+			local success, err = pcall(function()
+				loadstring(game:HttpGet(data.URL, true))()
+			end)
+			if not success then
+				warn("Error loading script:", err)
+			end
+		end)
+
+		scriptBtn.MouseEnter:Connect(function()
+			tooltip.Text = data.Tip or "No description"
+			tooltip.Visible = true
+		end)
+		scriptBtn.MouseLeave:Connect(function()
+			tooltip.Visible = false
+		end)
+	end
+
+	btn.MouseButton1Click:Connect(function()
+		showTab(tabName)
+	end)
+end
+
+local sidebarOpen = true
+
+hamburger.MouseButton1Click:Connect(function()
+	sidebarOpen = not sidebarOpen
+	local size = sidebarOpen and 120 or 0
+	local offset = sidebarOpen and 120 or 30
+
+	sidebar:TweenSize(UDim2.new(0, size, 1, -30), "Out", "Quad", 0.3, true)
+	contentFrame:TweenPosition(UDim2.new(0, offset, 0, 30), "Out", "Quad", 0.3, true)
+	contentFrame:TweenSize(UDim2.new(1, -offset, 1, -30), "Out", "Quad", 0.3, true)
+
+	for _, child in ipairs(sidebar:GetChildren()) do
+		if child:IsA("TextButton") then
+			child.Visible = sidebarOpen
+		end
+	end
+end)
+
+showTab("Local Player")
