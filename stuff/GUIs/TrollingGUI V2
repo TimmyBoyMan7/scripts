@@ -90,25 +90,36 @@ UIS.InputChanged:Connect(function(input)
 end)
 
 local tabData = {
-	["Local Player"] = {
-		{Name = "MovementHax", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "SuperSpeed wow"},
-		{Name = "Mass GUI", URL = "https://pastebin.com/raw/YOUR_SCRIPT_2", Tip = "You can push big parts I guess"},
-		{Name = "Noclip", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Self Explanitory"}
-	},
 	["Hubs/GUIs"] = {
 		{Name = "Trolling GUI V1", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "The Old Trolling GUI"},
 		{Name = "EZ hub", URL = "https://pastebin.com/raw/YOUR_SCRIPT_2", Tip = "A better hub fr"},
-		{Name = "OPfinality", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "A big insperation for this GUI"}
+		{Name = "OPfinality", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "A big insperation for this GUI"},
+		{Name = "Animations", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Animations"},
+		{Name = "Freaky", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Aint no party like a"},
+		{Name = "Sirius Hub", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "Its really good"},
+		{Name = "Dex Explorer", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Good for debugging"},
+		{Name = "Infinite yeild", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "HOW TO GET FREE ADMIN 2025 LEAKED"}
 	},
-	["Annoy Scripts"] = {
-		{Name = "Spam Dance", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "Endless dance emote"},
-		{Name = "Weird Walk", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "Makes you walk funny"},
-		{Name = "Random Sounds", URL = "https://pastebin.com/raw/YOUR_SCRIPT_6", Tip = "Plays random funny sounds"}
+	["Troll Scripts"] = {
+		{Name = "Super Ring Parts", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "it will break in some games"},
+		{Name = "Super Black Hole", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "its like the ring parts but a black hole"},
+		{Name = "SCP 096 anims", URL = "https://pastebin.com/raw/YOUR_SCRIPT_6", Tip = "sad man D: "},
+		{Name = "Float", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "PRESS Y TO TOGGLE it makes you have 1000000 ping"},
+		{Name = "telakanisis", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "Move around small parts freely, on the serverside"}
 	},
-	["Meme Scripts"] = {
-		{Name = "Rickroll GUI", URL = "https://pastebin.com/raw/YOUR_SCRIPT_7", Tip = "Shows a Rick Astley window"},
-		{Name = "Banana Gun", URL = "https://pastebin.com/raw/YOUR_SCRIPT_8", Tip = "Shoots bananas"},
-		{Name = "Flying Toilet", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "Become a flying toilet"}
+	["Game Specific"] = {
+		{Name = "BladeBall Autoparry", URL = "https://pastebin.com/raw/YOUR_SCRIPT_7", Tip = "it doesnt have a GUI but it works, and its one of the only keyless"},
+		{Name = "Brookhaven Sound Player", URL = "https://pastebin.com/raw/YOUR_SCRIPT_8", Tip = "It plays serverside sounds in brookhaven THE SOUNDS MUST BE LESS THAN 3 SECONDS"},
+		{Name = "FTAP menu", URL = "https://pastebin.com/raw/YOUR_SCRIPT_8", Tip = "Its really good but it does make you send a discord invite in chat"},
+		{Name = "Pilgrammed Allmirrors", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "make sure to spam G"},
+		{Name = "Pilgrammed ChestFarm", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "it will kick you after a while, but make sure to spam G"},
+		{Name = "Pilgrammed Mob Farm", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "Get a good sword and execute in the prairy while autoclicking."}
+
+	},
+	["Hacks"] = {
+		{Name = "Simple Aimbot", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "K to toggle"},
+		{Name = "Invisibility", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "Its super glitchy but it somewhat works"},
+		{Name = "Advanced Aimbot", URL = "https://pastebin.com/raw/YOUR_SCRIPT_6", Tip = "Takes a bit longer to set up, but its alright"}
 	}
 }
 
@@ -190,4 +201,4 @@ hamburger.MouseButton1Click:Connect(function()
 	end
 end)
 
-showTab("Local Player")
+showTab("Welcome!")
