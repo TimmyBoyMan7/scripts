@@ -91,35 +91,36 @@ end)
 
 local tabData = {
 	["Hubs/GUIs"] = {
-		{Name = "Trolling GUI V1", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "The Old Trolling GUI"},
-		{Name = "EZ hub", URL = "https://pastebin.com/raw/YOUR_SCRIPT_2", Tip = "A better hub fr"},
-		{Name = "OPfinality", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "A big insperation for this GUI"},
-		{Name = "Animations", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Animations"},
-		{Name = "Freaky", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Aint no party like a"},
-		{Name = "Sirius Hub", URL = "https://pastebin.com/raw/YOUR_SCRIPT_1", Tip = "Its really good"},
-		{Name = "Dex Explorer", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "Good for debugging"},
-		{Name = "Infinite yeild", URL = "https://pastebin.com/raw/YOUR_SCRIPT_3", Tip = "HOW TO GET FREE ADMIN 2025 LEAKED"}
+		{Name = "Trolling GUI V1", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/GUIs/TrollingGUI", Tip = "The Old Trolling GUI"},
+		{Name = "EZ hub", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/GUIs/Ez%20Hub", Tip = "A better hub fr"},
+		{Name = "OPfinality", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/GUIs/OPfinality", Tip = "A big insperation for this GUI"},
+		{Name = "Animations", URL = "gist.githubusercontent.com/MelonsStuff/f018928d2f010789a150b4924e279b16/raw/8de399eb9cbccbde430fcd37270cd4ff171f8b8e/AnimationGUI.txt", Tip = "Animations"},
+		{Name = "Freaky", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Funny%20Things/SussyAmongusGUI.txt", Tip = "Aint no party like a"},
+		{Name = "Sirius Hub", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/GUIs/Sirius_Hub.Lua", Tip = "Its really good"},
+		{Name = "Dex Explorer", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/GUIs/Dex-Explorer.txt", Tip = "Good for debugging"},
+		{Name = "Infinite yeild", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Admin%20Scripts/InfiniteYeild.txt", Tip = "HOW TO GET FREE ADMIN 2025 LEAKED"}
 	},
 	["Troll Scripts"] = {
-		{Name = "Super Ring Parts", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "it will break in some games"},
-		{Name = "Super Black Hole", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "its like the ring parts but a black hole"},
-		{Name = "SCP 096 anims", URL = "https://pastebin.com/raw/YOUR_SCRIPT_6", Tip = "sad man D: "},
-		{Name = "Float", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "PRESS Y TO TOGGLE it makes you have 1000000 ping"},
-		{Name = "telakanisis", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "Move around small parts freely, on the serverside"}
+		{Name = "Super Ring Parts", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Misc/Super-Ring-Parts.txt", Tip = "it will break in some games"},
+		{Name = "Super Black Hole", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Misc/Black%20Hole", Tip = "its like the ring parts but a black hole"},
+		{Name = "SCP 096 anims", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Misc/SCP%20096%20animations", Tip = "sad man D: "},
+		{Name = "Float", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Misc/Weird", Tip = "PRESS Y TO TOGGLE it makes you have 1000000 ping"},
+		{Name = "telakanisis", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Misc/telekanisis.txt", Tip = "Move around small parts freely, on the serverside"},
+		{Name = "Touch Fling", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Misc/Touch-Fling.txt", Tip = "Touch someone in a game with playercollision and they get flung"}
 	},
 	["Game Specific"] = {
-		{Name = "BladeBall Autoparry", URL = "https://pastebin.com/raw/YOUR_SCRIPT_7", Tip = "it doesnt have a GUI but it works, and its one of the only keyless"},
-		{Name = "Brookhaven Sound Player", URL = "https://pastebin.com/raw/YOUR_SCRIPT_8", Tip = "It plays serverside sounds in brookhaven THE SOUNDS MUST BE LESS THAN 3 SECONDS"},
-		{Name = "FTAP menu", URL = "https://pastebin.com/raw/YOUR_SCRIPT_8", Tip = "Its really good but it does make you send a discord invite in chat"},
-		{Name = "Pilgrammed Allmirrors", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "make sure to spam G"},
-		{Name = "Pilgrammed ChestFarm", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "it will kick you after a while, but make sure to spam G"},
-		{Name = "Pilgrammed Mob Farm", URL = "https://pastebin.com/raw/YOUR_SCRIPT_9", Tip = "Get a good sword and execute in the prairy while autoclicking."}
+		{Name = "BladeBall Autoparry", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Game-Specific/BladeBall%20Autoparry", Tip = "it doesnt have a GUI but it works, and its one of the only keyless"},
+		{Name = "Brookhaven Sound Player", URL = "https://raw.githubusercontent.com/nmalka01/nmalka01/refs/heads/main/Brookhaven_audio", Tip = "It plays serverside sounds in brookhaven THE SOUNDS MUST BE LESS THAN 3 SECONDS"},
+		{Name = "FTAP menu", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Game-Specific/FTAP%20menu", Tip = "Its really good but it does make you send a discord invite in chat"},
+		{Name = "Pilgrammed Allmirrors", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Game-Specific/Pilgrammed%20AllMirrors", Tip = "make sure to spam G"},
+		{Name = "Pilgrammed ChestFarm", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Game-Specific/Pilgrammed%20ChestFarm", Tip = "it will kick you after a while, but make sure to spam G"},
+		{Name = "Pilgrammed Mob Farm", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Game-Specific/Pilgrammed%20Mob%20Farm", Tip = "Get a good sword and execute in the prairy while autoclicking."}
 
 	},
 	["Hacks"] = {
-		{Name = "Simple Aimbot", URL = "https://pastebin.com/raw/YOUR_SCRIPT_4", Tip = "K to toggle"},
-		{Name = "Invisibility", URL = "https://pastebin.com/raw/YOUR_SCRIPT_5", Tip = "Its super glitchy but it somewhat works"},
-		{Name = "Advanced Aimbot", URL = "https://pastebin.com/raw/YOUR_SCRIPT_6", Tip = "Takes a bit longer to set up, but its alright"}
+		{Name = "Simple Aimbot", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Hacks/Simple%20Aimbot.txt", Tip = "K to toggle"},
+		{Name = "Invisibility", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Hacks/Invisiblity", Tip = "Its super glitchy but it somewhat works"},
+		{Name = "Advanced Aimbot", URL = "https://raw.githubusercontent.com/TimmyBoyMan7/scripts/refs/heads/main/stuff/Hacks/Owl-Hub-Aimbot.txt", Tip = "Takes a bit longer to set up, but its alright"}
 	}
 }
 
